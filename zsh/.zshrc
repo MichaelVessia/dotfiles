@@ -87,6 +87,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -102,6 +103,8 @@ source $ZSH/oh-my-zsh.sh
 alias floweb="cd ~/Projects/flosports-webapp"
 alias gcm="git checkout master"
 alias dots="nvim ~/dotfiles/"
+alias vim="nvim"
+alias tx="tmuxinator"
 
 
 eval $(/opt/homebrew/bin/brew shellenv)

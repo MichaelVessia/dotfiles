@@ -47,7 +47,7 @@ set updatetime=50
 set shortmess+=c
 
 " Font configuration
-"set guifont=JetBrains_Mono_NL_Regular_Nerd_font_Complete_Mono:h11
+" set guifont=JetBrains_Mono_NL_Regular_Nerd_font_Complete_Mono:h14
 
 call plug#begin()
 
@@ -67,6 +67,7 @@ Plug 'sickill/vim-monokai'
 " Git Utilities
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'airblade/vim-gitgutter'
 
 " COC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -76,6 +77,15 @@ Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'adelarsq/vim-devicons-emoji'
 Plug 'ryanoasis/nerd-fonts'
+
+" Tmux Support
+Plug 'christoomey/vim-tmux-navigator'
+
+" Change working directory
+Plug 'airblade/vim-rooter'
+
+" Status bar
+Plug 'itchyny/lightline.vim'
 
 
 call plug#end()
@@ -109,6 +119,37 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <C-n> <cmd>CHADopen<cr>
 " Clear quickfix list
 nnoremap <leader>l <cmd>call setqflist([])<cr>
+
+" Open undotree
+nnoremap <leader>u <cmd>UndotreeShow<cr>
+
+
+" TMUX
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+" Disable tmux navigator when zooming the Vim pane
+let g:tmux_navigator_disable_when_zoomed = 1
+
+
+" Git integration in statusbar
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
+" Colors for gitgutter
+highlight GitGutterAdd    guifg=#009900 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 
 
 
