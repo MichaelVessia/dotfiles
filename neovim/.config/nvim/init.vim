@@ -46,6 +46,9 @@ set updatetime=50
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
+" Font configuration
+"set guifont=JetBrains_Mono_NL_Regular_Nerd_font_Complete_Mono:h11
+
 call plug#begin()
 
 " Fuzzy finder
@@ -58,7 +61,8 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'mbbill/undotree'
 
 " Color scheme
-Plug 'gruvbox-community/gruvbox'
+"Plug 'gruvbox-community/gruvbox'
+Plug 'sickill/vim-monokai'
 
 " Git Utilities
 Plug 'tpope/vim-fugitive'
@@ -67,15 +71,25 @@ Plug 'tpope/vim-rhubarb'
 " COC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" Filetree
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+Plug 'ryanoasis/vim-devicons'
+Plug 'adelarsq/vim-devicons-emoji'
+Plug 'ryanoasis/nerd-fonts'
+
 
 call plug#end()
 
 " Color Scheme
-colorscheme gruvbox
+"colorscheme gruvbox
+syntax enable
+colorscheme monokai
 
 " Treesitter config
 lua require'nvim-treesitter.configs'.setup { highlight = { enable = true }, incremental_selection = { enable = true }, textobjects = { enable = true }}
 
+
+""" KEYBINDS
 "mode lhs rhs
 
 "n - normal
@@ -90,6 +104,16 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>ffh :lua require("telescope.builtin").find_files({ hidden=true })<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
+
+" Open filetree
+nnoremap <C-n> <cmd>CHADopen<cr>
+" Clear quickfix list
+nnoremap <leader>l <cmd>call setqflist([])<cr>
+
+
+
+
+
 
 
 """ COC EXAMPLE CONFIG """
