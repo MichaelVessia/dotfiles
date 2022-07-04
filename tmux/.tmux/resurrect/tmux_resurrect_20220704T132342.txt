@@ -1,4 +1,0 @@
-pane	floweb	0	1	:*	1	C6DWVF3HJG.local	:/Users/michael.vessia/dotfiles	1	nvim	:nvim /Users/michael.vessia/dotfiles/
-pane	floweb	0	1	:*	2	C6DWVF3HJG.local	:/Users/michael.vessia/Projects/flosports-webapp	0	zsh	:
-window	floweb	0	:nvim	1	:*	45c2,316x75,0,0{153x75,0,0,0,162x75,154,0,7}	:
-state	floweb	

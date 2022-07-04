@@ -1,8 +1,0 @@
-pane	flosports-webapp	1	1	:*	1	C6DWVF3HJG.local	:/Users/michael.vessia/Projects/flosports-webapp	1	nvim	:nvim .tmuxinator.yml
-pane	flosports-webapp	1	1	:*	2	C6DWVF3HJG.local	:/Users/michael.vessia/Projects/flosports-webapp	0	nvim	:nvim package.json
-pane	flosports-webapp	2	0	:-	1	C6DWVF3HJG.local	:/Users/michael.vessia	1	zsh	:
-pane	floweb	0	1	:##*	1	C6DWVF3HJG.local	:/Users/michael.vessia/Projects/flosports-webapp	1	zsh	:
-window	flosports-webapp	1	:editor	1	:*	469a,316x75,0,0{158x75,0,0,11,157x75,159,0,12}	off
-window	flosports-webapp	2	:server	0	:-	642f,316x75,0,0,10	off
-window	floweb	0	:zsh	1	:##*	c804,316x75,0,0,7	:
-state	flosports-webapp	floweb
