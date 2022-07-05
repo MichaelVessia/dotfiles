@@ -1,7 +1,7 @@
 # ./.tmuxinator.yml
 
-name: flosports-webapp
-root: ~/projects/flosports-webapp
+name: experience-service
+root: ~/projects/experience-service
 
 # Optional tmux socket
 # socket_name: foo
@@ -22,7 +22,6 @@ root: ~/projects/flosports-webapp
 
 # Run on project exit ( detaching from tmux session )
 # on_project_exit: command
-
 # Run on project stop
 # on_project_stop: command
 
@@ -46,24 +45,19 @@ root: ~/projects/flosports-webapp
 
 windows:
   - editor:
-      layout: f0c4,360x80,0,0{290x80,0,0,1,72x80,290,0[72x40,290,0,4,72x40,290,40,0]}
+      layout: 27a0,362x41,0,0{271x41,0,0,13,90x41,272,0,14}
+
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - test:
-          - cd ~/Projects/flosports-webapp
-          - npm run test:watch
-        - vim:
-          - cd ~/Projects/flosports-webapp
-          - vim README.md
         - term:
-          - cd ~/Projects/flosports-webapp
+          - cd ~/Projects/experience-service
           - git checkout -b <%= @settings["branch"] %>
           - git checkout <%= @settings["branch"] %>
+        - vim:
+          - cd ~/Projects/experience-service
+          - vim README.md
   - server: 
-    - cd ~/Projects/flosports-webapp
-    - npm run dev:ssr:prod
-  - storybook: 
-    - cd ~/Projects/flosports-webapp
-    - npm run storybook:serve
+    - cd ~/Projects/experience-service
+    - docker compose --env-file .env.prod up
