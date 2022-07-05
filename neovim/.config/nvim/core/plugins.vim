@@ -45,14 +45,3 @@ Plug 'tpope/vim-sleuth'
 
 
 call plug#end()
-
-" Source individual config files for each plugin
-" TODO: Possibly iterate over all .vim files in dir?
-source ~/.config/nvim/plugins/chadtree.vim
-source ~/.config/nvim/plugins/coc.vim
-source ~/.config/nvim/plugins/gitgutter.vim
-source ~/.config/nvim/plugins/lightline.vim
-source ~/.config/nvim/plugins/telescope.vim
-source ~/.config/nvim/plugins/treesitter.vim
-source ~/.config/nvim/plugins/undotree.vim
-source ~/.config/nvim/plugins/vim-tmux-navigator.vim
