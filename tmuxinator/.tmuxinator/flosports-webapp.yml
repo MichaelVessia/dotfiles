@@ -59,7 +59,8 @@ windows:
           - vim
         - term:
           - cd ~/Projects/flosports-webapp
-          - git status
+          - git checkout -b <%= @settings["branch"] %>
+          - git checkout <%= @settings["branch"] %>
   - server: 
     - cd ~/Projects/flosports-webapp
     - npm run dev:ssr:prod
