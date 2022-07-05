@@ -68,6 +68,7 @@ Plug 'sickill/vim-monokai'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/gv.vim'
 
 " COC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
