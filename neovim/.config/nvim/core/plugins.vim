@@ -22,6 +22,9 @@ Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 
+" Git Worktrees
+Plug 'ThePrimeagen/git-worktree.nvim'
+
 " COC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 

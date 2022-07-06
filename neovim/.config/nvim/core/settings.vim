@@ -60,3 +60,5 @@ set shortmess+=c
 "map
 "
 let mapleader = " "
+
+tnoremap <Esc> <C-\><C-n>
