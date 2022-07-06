@@ -46,5 +46,8 @@ Plug 'tpope/vim-sleuth'
 " Keybind cheatsheet
 Plug 'folke/which-key.nvim'
 
+" Markdown Support
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
 
 call plug#end()
