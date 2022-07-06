@@ -43,5 +43,8 @@ Plug 'itchyny/lightline.vim'
 " Indentation
 Plug 'tpope/vim-sleuth'
 
+" Keybind cheatsheet
+Plug 'folke/which-key.nvim'
+
 
 call plug#end()
