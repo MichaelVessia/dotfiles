@@ -1,3 +1,6 @@
+" Setup prettier command
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+
 """ COC EXAMPLE CONFIG """
 
 " Use tab for trigger completion with characters ahead and navigate.

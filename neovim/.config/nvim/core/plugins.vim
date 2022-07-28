@@ -45,6 +45,7 @@ Plug 'itchyny/lightline.vim'
 
 " Indentation
 Plug 'tpope/vim-sleuth'
+Plug 'gpanders/editorconfig.nvim'
 
 " Keybind cheatsheet
 Plug 'folke/which-key.nvim'
