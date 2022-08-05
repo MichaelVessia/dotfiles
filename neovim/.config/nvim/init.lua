@@ -26,6 +26,9 @@ require('packer').startup(function(use)
   use 'tpope/vim-sleuth'                                                             -- Detect tabstop and shiftwidth automatically
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }    -- Fuzzy Finder (files, lsp, etc)
   use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' } }  -- File Tree
+  use 'christoomey/vim-tmux-navigator'                                               -- Tmux+Vim Navigation support
+  use 'folke/which-key.nvim'                                                         -- Keybind cheatsheet
+  use 'ThePrimeagen/git-worktree.nvim'                                               -- Worktree support
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
@@ -297,7 +300,7 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
-local servers = { 'angularls', 'eslint', 'tsserver', 'sumneko_lua', 'jsonls', 'html', 'cssls', 'astro'  }
+local servers = { 'angularls', 'eslint', 'tsserver', 'sumneko_lua', 'jsonls', 'html', 'cssls', 'astro', 'ansiblels'  }
 
 -- Ensure the servers above are installed
 require('nvim-lsp-installer').setup {
@@ -385,6 +388,23 @@ cmp.setup {
 -- Enable File Tree
 require("nvim-tree").setup()
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<cr>')
+
+-- Enable Whichkey
+require("which-key").setup()
+vim.keymap.set('n', '<leader>wk', ':WhichKey<cr>')
+
+-- Enable vim+tmux nav
+vim.g.tmux_navigator_no_mappings = 1
+vim.keymap.set( 'n', '<c-k>', ':TmuxNavigateUp<cr>', { silent = true })
+vim.keymap.set( 'n', '<c-j>', ':TmuxNavigateDown<cr>', { silent = true })
+vim.keymap.set( 'n', '<c-h>', ':TmuxNavigateLeft<cr>', { silent = true })
+vim.keymap.set( 'n', '<c-l>', ':TmuxNavigateRight<cr>', { silent = true })
+
+-- Enable telescope git-worktree, if installed
+pcall(require('telescope').load_extension, 'git_worktree')
+vim.keymap.set('n', '<leader>gw', [[<Cmd>lua require("telescope").extensions.git_worktree.git_worktrees()<CR>]], { desc = '[G]it [W]orktree' })
+vim.keymap.set('n', '<leader>gm', [[<Cmd>lua require("telescope").extensions.git_worktree.create_git_worktree()<CR>]], { desc = '[Git] Worktree [M]ake' })
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

@@ -89,6 +89,11 @@ _G.packer_plugins = {
     path = "/home/michaelvessia/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["git-worktree.nvim"] = {
+    loaded = true,
+    path = "/home/michaelvessia/.local/share/nvim/site/pack/packer/start/git-worktree.nvim",
+    url = "https://github.com/ThePrimeagen/git-worktree.nvim"
+  },
   ["gitsigns.nvim"] = {
     loaded = true,
     path = "/home/michaelvessia/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
@@ -181,6 +186,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/michaelvessia/.local/share/nvim/site/pack/packer/start/vim-sleuth",
     url = "https://github.com/tpope/vim-sleuth"
+  },
+  ["vim-tmux-navigator"] = {
+    loaded = true,
+    path = "/home/michaelvessia/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator",
+    url = "https://github.com/christoomey/vim-tmux-navigator"
+  },
+  ["which-key.nvim"] = {
+    loaded = true,
+    path = "/home/michaelvessia/.local/share/nvim/site/pack/packer/start/which-key.nvim",
+    url = "https://github.com/folke/which-key.nvim"
   }
 }
 
