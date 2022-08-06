@@ -391,9 +391,11 @@ require("nvim-tree").setup()
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<cr>')
 
 -- Enable Whichkey
-require("which-key").setup() -- This will require a lot more setup to be useful
-
---vim.keymap.set('n', '<leader>wk', ':WhichKey<cr>')
+local wk = require("which-key")
+local mappings = {}
+local opts = { prefix = '<leader>' }
+wk.register(mappings, opts)
+wk.setup()
 
 -- Enable vim+tmux nav
 vim.g.tmux_navigator_no_mappings = 1
