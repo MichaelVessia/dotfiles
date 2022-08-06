@@ -180,6 +180,7 @@ vim.keymap.set('n', '<leader>/', function()
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>fa', function() require('telescope.builtin').find_files({hidden = true}) end, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
@@ -189,7 +190,7 @@ vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'lua', 'typescript', 'rust', 'go', 'python' },
+  ensure_installed = { 'lua', 'typescript', 'tsx', 'yaml', 'json', 'astro', 'html', 'css' },
 
   highlight = { enable = true },
   indent = { enable = true },
@@ -391,7 +392,7 @@ vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<cr>')
 
 -- Enable Whichkey
 require("which-key").setup()
-vim.keymap.set('n', '<leader>wk', ':WhichKey<cr>')
+--vim.keymap.set('n', '<leader>wk', ':WhichKey<cr>')
 
 -- Enable vim+tmux nav
 vim.g.tmux_navigator_no_mappings = 1
