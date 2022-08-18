@@ -66,8 +66,9 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- Set highlight on search
 vim.o.hlsearch = false
 
--- Make line numbers default
-vim.wo.number = true
+-- Make line numbers relative and highlight current line
+vim.wo.relativenumber = true
+vim.wo.cursorline = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
