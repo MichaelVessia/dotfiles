@@ -9,5 +9,4 @@ alias tx="tmuxinator"
 
 # Fetch all refs from remote
 # Useful for pulling remote branches for use with git worktree
-alias fetchall="git fetch origin 'refs/heads/*:refs/heads/*'"
-
+alias fetchall="git fetch origin 'refs/heads/*:refs/heads/*' --update-head-ok"
