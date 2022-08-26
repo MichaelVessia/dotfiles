@@ -388,7 +388,11 @@ cmp.setup {
 }
 
 -- Enable File Tree
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  view = {
+    adaptive_size = true
+  }
+})
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<cr>')
 
 -- Enable Whichkey
