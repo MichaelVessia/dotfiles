@@ -94,6 +94,9 @@ vim.cmd [[colorscheme onedark]]
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+-- Turn off swapfiles
+vim.o.swapfile = false
+
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -394,6 +397,8 @@ require("nvim-tree").setup({
   }
 })
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<cr>')
+vim.keymap.set('n', '<leader>tt', ':NvimTreeToggle<cr>', { desc = '[T]ree [T]oggle' })
+vim.keymap.set('n', '<leader>tf', ':NvimTreeFindFileToggle<cr>', { desc = '[T]ree [F]ind File' })
 
 -- Enable Whichkey
 local wk = require("which-key")
