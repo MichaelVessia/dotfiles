@@ -20,7 +20,7 @@ require('packer').startup(function(use)
   use 'williamboman/nvim-lsp-installer'                                              -- Automatically install language servers to stdpath
   use { 'hrsh7th/nvim-cmp', requires = { 'hrsh7th/cmp-nvim-lsp' } }                  -- Autocompletion
   use { 'L3MON4D3/LuaSnip', requires = { 'saadparwaiz1/cmp_luasnip' } }              -- Snippet Engine and Snippet Expansion
-  use 'mjlbach/onedark.nvim'                                                         -- Theme inspired by Atom
+  use { "catppuccin/nvim", as = "catppuccin" }                                                       -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim'                                                    -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim'                                          -- Add indentation guides even on blank lines
   use 'tpope/vim-sleuth'                                                             -- Detect tabstop and shiftwidth automatically
@@ -89,7 +89,11 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme onedark]]
+vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+
+require("catppuccin").setup()
+
+vim.cmd [[colorscheme catppuccin]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
