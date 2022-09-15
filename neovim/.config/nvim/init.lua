@@ -169,6 +169,7 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
+    path_display={"smart"}
   },
 }
 
