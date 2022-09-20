@@ -427,6 +427,9 @@ pcall(require('telescope').load_extension, 'git_worktree')
 vim.keymap.set('n', '<leader>gw', [[<Cmd>lua require("telescope").extensions.git_worktree.git_worktrees()<CR>]], { desc = '[G]it [W]orktree' })
 vim.keymap.set('n', '<leader>gm', [[<Cmd>lua require("telescope").extensions.git_worktree.create_git_worktree()<CR>]], { desc = '[Git] Worktree [M]ake' })
 
+-- Enable easy editing of my config
+vim.keymap.set('n', '<leader>ev', ':tabnew $MYVIMRC<cr>', { desc = '[E]dit [V]imrc' })
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
