@@ -26,7 +26,20 @@ require('packer').startup(function(use)
   use 'tpope/vim-sleuth'                                                             -- Detect tabstop and shiftwidth automatically
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }    -- Fuzzy Finder (files, lsp, etc)
   use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' } }  -- File Tree
-  use 'christoomey/vim-tmux-navigator'                                               -- Tmux+Vim Navigation support
+  use { 'alexghergh/nvim-tmux-navigation', config = function()
+    require'nvim-tmux-navigation'.setup {
+      disable_when_zoomed = true, -- defaults to false
+      keybindings = {
+        left = "<C-h>",
+        down = "<C-j>",
+        up = "<C-k>",
+        right = "<C-l>",
+        last_active = "<C-\\>",
+        next = "<C-Space>",
+      }
+    }
+  end
+  }
   use 'folke/which-key.nvim'                                                         -- Keybind cheatsheet
   use 'ThePrimeagen/git-worktree.nvim'                                               -- Worktree support
   use 'norcalli/nvim-colorizer.lua'                                                  -- Show HTML colors
