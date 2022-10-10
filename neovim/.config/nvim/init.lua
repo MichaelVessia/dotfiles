@@ -326,7 +326,7 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
-local servers = { 'angularls', 'eslint', 'tsserver', 'sumneko_lua', 'jsonls', 'html', 'cssls', 'astro', 'ansiblels'  }
+local servers = { 'angularls', 'eslint', 'tsserver', 'sumneko_lua', 'jsonls', 'html', 'cssls', 'astro', 'ansiblels', 'rust_analyzer'  }
 
 -- Ensure the servers above are installed
 require('nvim-lsp-installer').setup {
