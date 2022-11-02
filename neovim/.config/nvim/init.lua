@@ -10,7 +10,7 @@ end
 -- stylua: ignore start
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'                                                       -- Package manager
-  use 'tpope/vim-fugitive'                                                           -- Git commands in nvim
+  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }               -- Neovim magit clone
   use 'tpope/vim-rhubarb'                                                            -- Fugitive-companion to interact with github
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }          -- Add git related info in the signs columns and popups
   use 'numToStr/Comment.nvim'                                                        -- "gc" to comment visual regions/lines
@@ -442,6 +442,10 @@ vim.keymap.set('n', '<leader>gm', [[<Cmd>lua require("telescope").extensions.git
 
 -- Enable easy editing of my config
 vim.keymap.set('n', '<leader>ev', ':tabnew $MYVIMRC<cr>', { desc = '[E]dit [V]imrc' })
+
+-- Enable Neogit
+local neogit = require('neogit')
+neogit.setup {}
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
