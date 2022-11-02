@@ -26,7 +26,20 @@ require('packer').startup(function(use)
   use 'tpope/vim-sleuth'                                                             -- Detect tabstop and shiftwidth automatically
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }    -- Fuzzy Finder (files, lsp, etc)
   use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' } }  -- File Tree
-  use 'christoomey/vim-tmux-navigator'                                               -- Tmux+Vim Navigation support
+  use { 'alexghergh/nvim-tmux-navigation', config = function()
+    require'nvim-tmux-navigation'.setup {
+      disable_when_zoomed = true, -- defaults to false
+      keybindings = {
+        left = "<C-h>",
+        down = "<C-j>",
+        up = "<C-k>",
+        right = "<C-l>",
+        last_active = "<C-\\>",
+        next = "<C-Space>",
+      }
+    }
+  end
+  }
   use 'folke/which-key.nvim'                                                         -- Keybind cheatsheet
   use 'ThePrimeagen/git-worktree.nvim'                                               -- Worktree support
   use 'NvChad/nvim-colorizer.lua'                                                    -- Show HTML colors
@@ -313,7 +326,7 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
-local servers = { 'angularls', 'eslint', 'tsserver', 'sumneko_lua', 'jsonls', 'html', 'cssls', 'astro', 'ansiblels'  }
+local servers = { 'angularls', 'eslint', 'tsserver', 'sumneko_lua', 'jsonls', 'html', 'cssls', 'astro', 'ansiblels', 'rust_analyzer'  }
 
 -- Ensure the servers above are installed
 require('nvim-lsp-installer').setup {
