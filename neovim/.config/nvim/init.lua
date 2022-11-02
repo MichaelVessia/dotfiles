@@ -29,7 +29,7 @@ require('packer').startup(function(use)
   use 'christoomey/vim-tmux-navigator'                                               -- Tmux+Vim Navigation support
   use 'folke/which-key.nvim'                                                         -- Keybind cheatsheet
   use 'ThePrimeagen/git-worktree.nvim'                                               -- Worktree support
-  use 'norcalli/nvim-colorizer.lua'                                                  -- Show HTML colors
+  use 'NvChad/nvim-colorizer.lua'                                                    -- Show HTML colors
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
