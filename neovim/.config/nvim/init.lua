@@ -11,7 +11,6 @@ end
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'                                                       -- Package manager
   use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }               -- Neovim magit clone
-  use 'tpope/vim-rhubarb'                                                            -- Fugitive-companion to interact with github
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }          -- Add git related info in the signs columns and popups
   use 'numToStr/Comment.nvim'                                                        -- "gc" to comment visual regions/lines
   use 'nvim-treesitter/nvim-treesitter'                                              -- Highlight, edit, and navigate code
@@ -323,7 +322,7 @@ local on_attach = function(_, bufnr)
 end
 
 -- nvim-cmp supports additional completion capabilities
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
 local servers = { 'angularls', 'eslint', 'tsserver', 'sumneko_lua', 'jsonls', 'html', 'cssls', 'astro', 'ansiblels', 'rust_analyzer'  }
@@ -435,7 +434,7 @@ vim.keymap.set( 'n', '<c-j>', ':TmuxNavigateDown<cr>', { silent = true })
 vim.keymap.set( 'n', '<c-h>', ':TmuxNavigateLeft<cr>', { silent = true })
 vim.keymap.set( 'n', '<c-l>', ':TmuxNavigateRight<cr>', { silent = true })
 
--- Enable telescope git-worktree, if installed
+-- Enable telescope git-worktree, if installe
 pcall(require('telescope').load_extension, 'git_worktree')
 vim.keymap.set('n', '<leader>gw', [[<Cmd>lua require("telescope").extensions.git_worktree.git_worktrees()<CR>]], { desc = '[G]it [W]orktree' })
 vim.keymap.set('n', '<leader>gm', [[<Cmd>lua require("telescope").extensions.git_worktree.create_git_worktree()<CR>]], { desc = '[Git] Worktree [M]ake' })
@@ -446,6 +445,7 @@ vim.keymap.set('n', '<leader>ev', ':tabnew $MYVIMRC<cr>', { desc = '[E]dit [V]im
 -- Enable Neogit
 local neogit = require('neogit')
 neogit.setup {}
+vim.keymap.set('n', '<leader>gg', ':Neogit kind=split_above<cr>', { desc = 'Open [G]it' })
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
