@@ -54,6 +54,8 @@ require('packer').startup(function(use)
   }
   use { 'rcarriga/nvim-notify', config = function () require("notify").setup { stages = 'fade_in_slide_out', background_colour = 'FloatShadow', timeout = 3000, } vim.notify = require('notify') end }
 
+  use { 'stevearc/aerial.nvim' }
+
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
 
@@ -453,6 +455,27 @@ vim.keymap.set('n', '<leader>gs', ':G<cr>', { desc = '[G]it [S]tatus' })
 vim.keymap.set('n', '<leader>gl', ':Git blame<cr>', { desc = '[G]it B[l]ame' })
 vim.keymap.set('n', '<leader>gr', ':GBrowse<cr>', { desc = '[G]it [R]epo' })
 vim.keymap.set('n', '<leader>gp', ':Git push -u origin HEAD<cr>', { desc = '[G]it [P]ush' })
+
+-- Vim aerial (symbol outline)
+require("aerial").setup({
+  attach_mode = "global",
+  backends = { "lsp", "treesitter", "markdown" },
+  layout = {
+    min_width = 28,
+  },
+  show_guides = true,
+  filter_kind = false,
+  keymaps = {
+    ["[y"] = "actions.prev",
+    ["]y"] = "actions.next",
+    ["[Y"] = "actions.prev_up",
+    ["]Y"] = "actions.next_up",
+    ["{"] = false,
+    ["}"] = false,
+    ["[["] = false,
+    ["]]"] = false,
+  }})
+vim.keymap.set('n', '<leader>oo', ':AerialToggle<cr>', { desc = '[O]pen [O]utline' })
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
