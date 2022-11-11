@@ -188,6 +188,27 @@ require('gitsigns').setup {
   },
 }
 
+-- Vim aerial (symbol outline)
+require("aerial").setup({
+  attach_mode = "global",
+  backends = { "lsp", "treesitter", "markdown" },
+  layout = {
+    min_width = 28,
+  },
+  show_guides = true,
+  filter_kind = false,
+  keymaps = {
+    ["[y"] = "actions.prev",
+    ["]y"] = "actions.next",
+    ["[Y"] = "actions.prev_up",
+    ["]Y"] = "actions.next_up",
+    ["{"] = false,
+    ["}"] = false,
+    ["[["] = false,
+    ["]]"] = false,
+  }})
+vim.keymap.set('n', '<leader>oo', ':AerialToggle<cr>', { desc = '[O]pen [O]utline' })
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -204,6 +225,7 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+pcall(require('telescope').load_extension, 'aerial')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -222,7 +244,8 @@ vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
 vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
-vim.keymap.set('n', '<leader>fn', ':Telescope notify<cr>', { desc = '[Find] [N]otifications' })
+vim.keymap.set('n', '<leader>fn', ':Telescope notify<cr>', { desc = '[F]ind [N]otifications' })
+vim.keymap.set('n', '<leader>fs', ':Telescope aerial<cr>', { desc = '[F]ind [S]ymbols' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -455,28 +478,6 @@ vim.keymap.set('n', '<leader>gs', ':G<cr>', { desc = '[G]it [S]tatus' })
 vim.keymap.set('n', '<leader>gl', ':Git blame<cr>', { desc = '[G]it B[l]ame' })
 vim.keymap.set('n', '<leader>gr', ':GBrowse<cr>', { desc = '[G]it [R]epo' })
 vim.keymap.set('n', '<leader>gp', ':Git push -u origin HEAD<cr>', { desc = '[G]it [P]ush' })
-
--- Vim aerial (symbol outline)
-require("aerial").setup({
-  attach_mode = "global",
-  backends = { "lsp", "treesitter", "markdown" },
-  layout = {
-    min_width = 28,
-  },
-  show_guides = true,
-  filter_kind = false,
-  keymaps = {
-    ["[y"] = "actions.prev",
-    ["]y"] = "actions.next",
-    ["[Y"] = "actions.prev_up",
-    ["]Y"] = "actions.next_up",
-    ["{"] = false,
-    ["}"] = false,
-    ["[["] = false,
-    ["]]"] = false,
-  }})
-vim.keymap.set('n', '<leader>oo', ':AerialToggle<cr>', { desc = '[O]pen [O]utline' })
-
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
