@@ -456,3 +456,7 @@ vim.keymap.set('n', '<leader>gp', ':Git push -u origin HEAD<cr>', { desc = '[G]i
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
+-- If seeing errors parsing, check that you do not have two parsers installed.  Why this happens I do not know.
+-- :echo nvim_get_runtime_file('*/python.so', v:true)
+-- rm -rf /usr/local/lib/nvim/parser
