@@ -10,13 +10,15 @@ end
 -- stylua: ignore start
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'                                                       -- Package manager
-  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }               -- Neovim magit clone
+  use 'tpope/vim-fugitive'                                                           -- Git commands in nvim
+  use 'tpope/vim-rhubarb'                                                            -- Fugitive-companion to interact with github
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }          -- Add git related info in the signs columns and popups
   use 'numToStr/Comment.nvim'                                                        -- "gc" to comment visual regions/lines
   use 'nvim-treesitter/nvim-treesitter'                                              -- Highlight, edit, and navigate code
   use 'nvim-treesitter/nvim-treesitter-textobjects'                                  -- Additional textobjects for treesitter
   use 'neovim/nvim-lspconfig'                                                        -- Collection of configurations for built-in LSP client
-  use 'williamboman/nvim-lsp-installer'                                              -- Automatically install language servers to stdpath
+  use 'williamboman/mason.nvim'                                                      -- Manage external editor tooling i.e LSP servers
+  use 'williamboman/mason-lspconfig.nvim'                                            -- Automatically install language servers to stdpath
   use { 'hrsh7th/nvim-cmp', requires = { 'hrsh7th/cmp-nvim-lsp' } }                  -- Autocompletion
   use { 'L3MON4D3/LuaSnip', requires = { 'saadparwaiz1/cmp_luasnip' } }              -- Snippet Engine and Snippet Expansion
   use { 'navarasu/onedark.nvim' }                                                    -- Theme inspired by Atom
@@ -322,13 +324,16 @@ local on_attach = function(_, bufnr)
 end
 
 -- nvim-cmp supports additional completion capabilities
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- Setup mason so it can manage external tooling
+require('mason').setup()
 
 -- Enable the following language servers
 local servers = { 'angularls', 'eslint', 'tsserver', 'sumneko_lua', 'jsonls', 'html', 'cssls', 'astro', 'ansiblels', 'rust_analyzer'  }
 
 -- Ensure the servers above are installed
-require('nvim-lsp-installer').setup {
+require('mason-lspconfig').setup {
   ensure_installed = servers,
 }
 
@@ -434,7 +439,7 @@ vim.keymap.set( 'n', '<c-j>', ':TmuxNavigateDown<cr>', { silent = true })
 vim.keymap.set( 'n', '<c-h>', ':TmuxNavigateLeft<cr>', { silent = true })
 vim.keymap.set( 'n', '<c-l>', ':TmuxNavigateRight<cr>', { silent = true })
 
--- Enable telescope git-worktree, if installe
+-- Enable telescope git-worktree, if installed
 pcall(require('telescope').load_extension, 'git_worktree')
 vim.keymap.set('n', '<leader>gw', [[<Cmd>lua require("telescope").extensions.git_worktree.git_worktrees()<CR>]], { desc = '[G]it [W]orktree' })
 vim.keymap.set('n', '<leader>gm', [[<Cmd>lua require("telescope").extensions.git_worktree.create_git_worktree()<CR>]], { desc = '[Git] Worktree [M]ake' })
@@ -442,10 +447,8 @@ vim.keymap.set('n', '<leader>gm', [[<Cmd>lua require("telescope").extensions.git
 -- Enable easy editing of my config
 vim.keymap.set('n', '<leader>ev', ':tabnew $MYVIMRC<cr>', { desc = '[E]dit [V]imrc' })
 
--- Enable Neogit
-local neogit = require('neogit')
-neogit.setup {}
-vim.keymap.set('n', '<leader>gg', ':Neogit kind=split_above<cr>', { desc = 'Open [G]it' })
+-- Fugitive
+vim.keymap.set('n', '<leader>gs', ':G<cr>', { desc = '[G]it [S]tatus' })
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
