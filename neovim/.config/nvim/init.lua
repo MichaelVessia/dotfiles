@@ -494,6 +494,13 @@ vim.keymap.set('n', '<leader>gr', ':GBrowse<cr>', { desc = '[G]it [R]epo' })
 vim.keymap.set('n', '<leader>gp', ':Git push -u origin HEAD<cr>', { desc = '[G]it [P]ush' })
 vim.keymap.set('n', '<leader>gd', ':Git diff<cr>', { desc = '[G]it [D]iff' })
 
+
+-- Command aliases for typos
+vim.keymap.set('c', 'W', 'w')
+vim.keymap.set('c', 'Q', 'q')
+vim.keymap.set('c', 'WQ', 'wq')
+vim.keymap.set('c', 'Wq', 'wq')
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 --
