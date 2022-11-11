@@ -451,6 +451,7 @@ vim.keymap.set('n', '<leader>ev', ':tabnew $MYVIMRC<cr>', { desc = '[E]dit [V]im
 vim.keymap.set('n', '<leader>gs', ':G<cr>', { desc = '[G]it [S]tatus' })
 vim.keymap.set('n', '<leader>gl', ':Git blame<cr>', { desc = '[G]it B[l]ame' })
 vim.keymap.set('n', '<leader>gr', ':GBrowse<cr>', { desc = '[G]it [R]epo' })
+vim.keymap.set('n', '<leader>gp', ':Git push -u origin HEAD<cr>', { desc = '[G]it [P]ush' })
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
