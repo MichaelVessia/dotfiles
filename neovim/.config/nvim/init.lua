@@ -52,7 +52,7 @@ require('packer').startup(function(use)
       "MunifTanjim/nui.nvim",
     }
   }
-  use 'rcarriga/nvim-notify'
+  use { 'rcarriga/nvim-notify', config = function () require("notify").setup { stages = 'fade_in_slide_out', background_colour = 'FloatShadow', timeout = 3000, } vim.notify = require('notify') end }
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
@@ -447,9 +447,6 @@ vim.keymap.set( 'n', '<c-l>', ':TmuxNavigateRight<cr>', { silent = true })
 pcall(require('telescope').load_extension, 'git_worktree')
 vim.keymap.set('n', '<leader>gw', [[<Cmd>lua require("telescope").extensions.git_worktree.git_worktrees()<CR>]], { desc = '[G]it [W]orktree' })
 vim.keymap.set('n', '<leader>gm', [[<Cmd>lua require("telescope").extensions.git_worktree.create_git_worktree()<CR>]], { desc = '[Git] Worktree [M]ake' })
-
--- set notifications to use notify plugin by default
-  vim.notify = require("notify")
 
 -- Enable easy editing of my config
 vim.keymap.set('n', '<leader>rc', ':tabnew $MYVIMRC<cr>', { desc = '[E]dit [V]imrc' })
