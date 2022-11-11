@@ -59,6 +59,8 @@ require('packer').startup(function(use)
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
 
+  use {'stevearc/dressing.nvim'}
+
   if is_bootstrap then
     require('packer').sync()
   end
@@ -457,6 +459,18 @@ vim.keymap.set('n', '<leader>e', ':Neotree reveal toggle<cr>', { desc = 'Toggle 
 
 -- Enable Whichkey
 require("which-key").setup()
+
+-- Enable dressing (UI styling)
+require("dressing").setup({
+  input = {
+    default_prompt = "➤ ",
+    winhighlight = "Normal:Normal,NormalNC:Normal",
+  },
+  select = {
+    backend = { "telescope", "builtin" },
+    builtin = { winhighlight = "Normal:Normal,NormalNC:Normal" },
+  }
+})
 
 -- Enable vim+tmux nav
 vim.g.tmux_navigator_no_mappings = 1
