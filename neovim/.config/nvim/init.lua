@@ -26,7 +26,6 @@ require('packer').startup(function(use)
   use 'lukas-reineke/indent-blankline.nvim'                                            -- Add indentation guides even on blank lines
   use 'tpope/vim-sleuth'                                                               -- Detect tabstop and shiftwidth automatically
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' }   }    -- Fuzzy Finder (files, lsp, etc)
-  use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' }   }  -- File Tree
   use { 'alexghergh/nvim-tmux-navigation', config = function()
     require'nvim-tmux-navigation'.setup {
       disable_when_zoomed = true, -- defaults to false
@@ -44,6 +43,15 @@ require('packer').startup(function(use)
   use 'folke/which-key.nvim'                                                         -- Keybind cheatsheet
   use 'ThePrimeagen/git-worktree.nvim'                                               -- Worktree support
   use 'NvChad/nvim-colorizer.lua'                                                    -- Show HTML colors
+  use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = { 
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
+  }
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
@@ -416,14 +424,9 @@ cmp.setup {
 }
 
 -- Enable File Tree
-require("nvim-tree").setup({
-  view = {
-    adaptive_size = true
-  }
-})
-vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<cr>')
-vim.keymap.set('n', '<leader>tt', ':NvimTreeToggle<cr>', { desc = '[T]ree [T]oggle' })
-vim.keymap.set('n', '<leader>tf', ':NvimTreeFindFileToggle<cr>', { desc = '[T]ree [F]ind File' })
+vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+
+vim.keymap.set('n', '<leader>e', ':Neotree reveal toggle<cr>', { desc = 'Toggle Tr[E]e' })
 
 -- Enable Whichkey
 local wk = require("which-key")
@@ -445,7 +448,7 @@ vim.keymap.set('n', '<leader>gw', [[<Cmd>lua require("telescope").extensions.git
 vim.keymap.set('n', '<leader>gm', [[<Cmd>lua require("telescope").extensions.git_worktree.create_git_worktree()<CR>]], { desc = '[Git] Worktree [M]ake' })
 
 -- Enable easy editing of my config
-vim.keymap.set('n', '<leader>ev', ':tabnew $MYVIMRC<cr>', { desc = '[E]dit [V]imrc' })
+vim.keymap.set('n', '<leader>rc', ':tabnew $MYVIMRC<cr>', { desc = '[E]dit [V]imrc' })
 
 -- Fugitive
 vim.keymap.set('n', '<leader>gs', ':G<cr>', { desc = '[G]it [S]tatus' })
