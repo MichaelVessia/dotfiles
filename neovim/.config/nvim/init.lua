@@ -96,6 +96,8 @@ vim.o.hlsearch = false
 
 -- Make line numbers relative and highlight current line
 vim.wo.relativenumber = true
+-- Enable hybrid numbers, shows the current line number instead of 0
+vim.wo.number = true
 vim.wo.cursorline = true
 
 -- Enable mouse mode
