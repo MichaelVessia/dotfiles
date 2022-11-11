@@ -1,5 +1,5 @@
 tmux/.tmux/resurrect/*
-tmux/.tmux/plugins/*
+tmux/.tmux/plugins/**/*
 .git/*
 **/.DS_Store
 .luarc.json
