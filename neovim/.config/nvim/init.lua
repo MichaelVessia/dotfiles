@@ -327,10 +327,12 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>ep', vim.diagnostic.goto_prev)
+vim.keymap.set('n', '<leader>en', vim.diagnostic.goto_next)
+--vim.keymap.set('n', '<leader>en', [[<Cmd>lua require("trouble").next({skip_groups = true, jump = true})<CR>]], { desc = '[E]rror [N]ext' })
+--vim.keymap.set('n', '<leader>ep', [[<Cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>]], { desc = '[E]rror [P]revious' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+-- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist) -- don't need this with trouble.nvim
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
