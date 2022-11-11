@@ -61,6 +61,18 @@ require('packer').startup(function(use)
 
   use {'stevearc/dressing.nvim'}
 
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+
   if is_bootstrap then
     require('packer').sync()
   end
@@ -457,8 +469,8 @@ cmp.setup {
 
 -- Enable File Tree
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+vim.keymap.set('n', '<leader>n', ':Neotree reveal toggle<cr>', { desc = '[N]eo Tree' })
 
-vim.keymap.set('n', '<leader>e', ':Neotree reveal toggle<cr>', { desc = 'Toggle Tr[E]e' })
 
 -- Enable Whichkey
 require("which-key").setup()
@@ -504,6 +516,26 @@ vim.keymap.set('c', 'W', 'w')
 vim.keymap.set('c', 'Q', 'q')
 vim.keymap.set('c', 'WQ', 'wq')
 vim.keymap.set('c', 'Wq', 'wq')
+
+-- trouble (diagnostics viewer)
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
+  {silent = true, noremap = true}
+)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
