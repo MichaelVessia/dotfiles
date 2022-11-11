@@ -492,6 +492,7 @@ vim.keymap.set('n', '<leader>gs', ':G<cr>', { desc = '[G]it [S]tatus' })
 vim.keymap.set('n', '<leader>gl', ':Git blame<cr>', { desc = '[G]it B[l]ame' })
 vim.keymap.set('n', '<leader>gr', ':GBrowse<cr>', { desc = '[G]it [R]epo' })
 vim.keymap.set('n', '<leader>gp', ':Git push -u origin HEAD<cr>', { desc = '[G]it [P]ush' })
+vim.keymap.set('n', '<leader>gd', ':Git diff<cr>', { desc = '[G]it [D]iff' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
