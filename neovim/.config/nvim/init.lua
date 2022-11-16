@@ -46,7 +46,7 @@ require('packer').startup(function(use)
   use {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    requires = { 
+    requires = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
@@ -79,6 +79,8 @@ require('packer').startup(function(use)
       require'window-picker'.setup()
     end,
   }
+
+  use { 'epwalsh/obsidian.nvim' }
 
   if is_bootstrap then
     require('packer').sync()
@@ -275,9 +277,12 @@ vim.keymap.set('n', '<leader>fs', ':Telescope aerial<cr>', { desc = '[F]ind [S]y
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'lua', 'typescript', 'tsx', 'yaml', 'json', 'astro', 'html', 'css' },
+  ensure_installed = { 'lua', 'typescript', 'tsx', 'yaml', 'json', 'astro', 'html', 'css', "markdown", "markdown_inline" },
 
-  highlight = { enable = true },
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = { "markdown" }
+  },
   indent = { enable = true },
   incremental_selection = {
     enable = true,
@@ -493,6 +498,13 @@ require("dressing").setup({
   select = {
     backend = { "telescope", "builtin" },
     builtin = { winhighlight = "Normal:Normal,NormalNC:Normal" },
+  }
+})
+
+require("obsidian").setup({
+  dir = "~/vault",
+  completion = {
+    nvim_cmp = true, -- if using nvim-cmp, otherwise set to false
   }
 })
 
