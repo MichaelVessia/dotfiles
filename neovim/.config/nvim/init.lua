@@ -72,6 +72,13 @@ require('packer').startup(function(use)
       }
     end
   }
+  use {
+    's1n7ax/nvim-window-picker',
+    tag = 'v1.*',
+    config = function()
+      require'window-picker'.setup()
+    end,
+  }
 
   if is_bootstrap then
     require('packer').sync()
