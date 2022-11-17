@@ -580,6 +580,12 @@ vim.keymap.set("n", "<leader>nfl", "<cmd>ObsidianLink<cr>",
 vim.keymap.set("n", "<leader>ncl", "<cmd>ObsidianLinkNew<cr>",
   {silent = true, noremap = true, desc = '[N]ote [C]reate [L]ink' }
 )
+vim.keymap.set("n", "<leader>ncl", "<cmd>ObsidianLinkNew<cr>",
+  {silent = true, noremap = true, desc = '[N]ote [C]reate [L]ink' }
+)
+vim.keymap.set("n", "<leader>nd", "<cmd>e ~/vault<cr>",
+  {silent = true, noremap = true, desc = '[N]ote [D]irectory' }
+)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
