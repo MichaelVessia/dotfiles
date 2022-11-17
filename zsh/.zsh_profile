@@ -13,3 +13,5 @@ alias git-fetchall="git fetch origin 'refs/heads/*:refs/heads/*' --update-head-o
 
 # Reset branch to origin
 alias git-reset-origin="git reset --hard @{u}"
+
+alias notes="nvim ~/vault"
