@@ -483,7 +483,7 @@ cmp.setup {
 
 -- Enable File Tree
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-vim.keymap.set('n', '<leader>n', ':Neotree reveal toggle<cr>', { desc = '[N]eo Tree' })
+vim.keymap.set('n', '<leader>t', ':Neotree reveal toggle<cr>', { desc = 'Neo[T]ree' })
 
 
 -- Enable Whichkey
@@ -585,6 +585,9 @@ vim.keymap.set("n", "<leader>ncl", "<cmd>ObsidianLinkNew<cr>",
 )
 vim.keymap.set("n", "<leader>nd", "<cmd>e ~/vault<cr>",
   {silent = true, noremap = true, desc = '[N]ote [D]irectory' }
+)
+vim.keymap.set("n", "<leader>nn", ":ObsidianNew",
+  {silent = true, noremap = true, desc = '[N]ew [N]ote' }
 )
 
 -- The line beneath this is called `modeline`. See `:help modeline`
