@@ -80,7 +80,9 @@ require('packer').startup(function(use)
     end,
   }
 
-  use { 'epwalsh/obsidian.nvim' }
+  use { 'epwalsh/obsidian.nvim',
+    tag = 'v1.*',
+  }
 
   if is_bootstrap then
     require('packer').sync()
@@ -505,7 +507,21 @@ require("obsidian").setup({
   dir = "~/vault",
   completion = {
     nvim_cmp = true, -- if using nvim-cmp, otherwise set to false
-  }
+  },
+  note_id_func = function(title)
+    -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
+    local suffix = ""
+    if title ~= nil then
+      -- If title is given, transform it into valid file name.
+      suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+    else
+      -- If title is nil, just add 4 random uppercase letters to the suffix.
+      for _ in 1, 4 do
+        suffix = suffix .. string.char(math.random(65, 90))
+      end
+    end
+    return tostring(os.time()) .. "-" .. suffix
+  end
 })
 
 -- Enable vim+tmux nav
