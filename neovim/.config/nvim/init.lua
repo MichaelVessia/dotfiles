@@ -563,9 +563,9 @@ vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
 vim.keymap.set("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>",
   {silent = true, noremap = true, desc = 'Diagnosti[X] [R]eferences' })
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>xp', vim.diagnostic.goto_prev)
-vim.keymap.set('n', '<leader>xn', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>xf', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>xp', vim.diagnostic.goto_prev, { desc = 'Diagnosti[X] [P]rev' })
+vim.keymap.set('n', '<leader>xn', vim.diagnostic.goto_next, { desc = 'Diagnosti[X] [N]ext' })
+vim.keymap.set('n', '<leader>xf', vim.diagnostic.open_float, { desc = 'Diagnosti[X] open [F]loat' })
 --
 -- obsidian (notes)
 vim.keymap.set("n", "<leader>nrb", "<cmd>ObsidianBacklinks<cr>",
