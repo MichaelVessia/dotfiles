@@ -568,11 +568,11 @@ vim.keymap.set('n', '<leader>xn', vim.diagnostic.goto_next, { desc = 'Diagnosti[
 vim.keymap.set('n', '<leader>xf', vim.diagnostic.open_float, { desc = 'Diagnosti[X] open [F]loat' })
 --
 -- obsidian (notes)
-vim.keymap.set("n", "<leader>nrb", "<cmd>ObsidianBacklinks<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [R]eferences [B]ack' }
+vim.keymap.set("n", "<leader>nb", "<cmd>ObsidianBacklinks<cr>",
+  {silent = true, noremap = true, desc = '[N]ote References [B]ack' }
 )
-vim.keymap.set("n", "<leader>nrf", "<cmd>ObsidianFollowLink<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [R]eferences [F]orward' }
+vim.keymap.set("n", "<leader>nf", "<cmd>ObsidianFollowLink<cr>",
+  {silent = true, noremap = true, desc = '[N]ote References [F]orward' }
 )
 vim.keymap.set("n", "<leader>nt", "<cmd>ObsidianToday<cr>",
   {silent = true, noremap = true, desc = '[N]ote [T]oday' }
@@ -583,13 +583,10 @@ vim.keymap.set("n", "<leader>no", "<cmd>ObsidianOpen<cr>",
 vim.keymap.set("n", "<leader>ns", "<cmd>ObsidianSearch<cr>",
   {silent = true, noremap = true, desc = '[N]ote [S]earch' }
 )
-vim.keymap.set("n", "<leader>nfl", "<cmd>ObsidianLink<cr>",
+vim.keymap.set("n", "<leader>nlf", "<cmd>ObsidianLink<cr>",
   {silent = true, noremap = true, desc = '[N]ote [F]ind [L]ink' }
 )
-vim.keymap.set("n", "<leader>ncl", "<cmd>ObsidianLinkNew<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [C]reate [L]ink' }
-)
-vim.keymap.set("n", "<leader>ncl", "<cmd>ObsidianLinkNew<cr>",
+vim.keymap.set("n", "<leader>nlc", "<cmd>ObsidianLinkNew<cr>",
   {silent = true, noremap = true, desc = '[N]ote [C]reate [L]ink' }
 )
 vim.keymap.set("n", "<leader>nd", "<cmd>e ~/vault<cr>",
