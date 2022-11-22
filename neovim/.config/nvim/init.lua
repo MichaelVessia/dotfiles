@@ -80,7 +80,9 @@ require('packer').startup(function(use)
     end,
   }
 
-  use { 'epwalsh/obsidian.nvim' }
+  use { 'epwalsh/obsidian.nvim',
+    tag = 'v1.*',
+  }
 
   if is_bootstrap then
     require('packer').sync()
@@ -129,6 +131,7 @@ vim.o.breakindent = true
 
 -- Save undo history
 vim.o.undofile = true
+vim.o.backupcopy = 'yes'
 
 -- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
@@ -338,13 +341,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>ep', vim.diagnostic.goto_prev)
-vim.keymap.set('n', '<leader>en', vim.diagnostic.goto_next)
---vim.keymap.set('n', '<leader>en', [[<Cmd>lua require("trouble").next({skip_groups = true, jump = true})<CR>]], { desc = '[E]rror [N]ext' })
---vim.keymap.set('n', '<leader>ep', [[<Cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>]], { desc = '[E]rror [P]revious' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist) -- don't need this with trouble.nvim
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
@@ -505,7 +501,21 @@ require("obsidian").setup({
   dir = "~/vault",
   completion = {
     nvim_cmp = true, -- if using nvim-cmp, otherwise set to false
-  }
+  },
+  note_id_func = function(title)
+    -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
+    local suffix = ""
+    if title ~= nil then
+      -- If title is given, transform it into valid file name.
+      suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+    else
+      -- If title is nil, just add 4 random uppercase letters to the suffix.
+      for _ in 1, 4 do
+        suffix = suffix .. string.char(math.random(65, 90))
+      end
+    end
+    return tostring(os.time()) .. "-" .. suffix
+  end
 })
 
 -- Enable vim+tmux nav
@@ -528,6 +538,7 @@ vim.keymap.set('n', '<leader>gs', ':G<cr>', { desc = '[G]it [S]tatus' })
 vim.keymap.set('n', '<leader>gl', ':Git blame<cr>', { desc = '[G]it B[l]ame' })
 vim.keymap.set('n', '<leader>gr', ':GBrowse<cr>', { desc = '[G]it [R]epo' })
 vim.keymap.set('n', '<leader>gp', ':Git push -u origin HEAD<cr>', { desc = '[G]it [P]ush' })
+vim.keymap.set('n', '<leader>gpn', ':Git push -u origin HEAD --no-verify<cr>', { desc = '[G]it [P]ush [N]o verify' })
 vim.keymap.set('n', '<leader>gf', ':Git pull<cr>', { desc = '[G]it [F]etch (Pull)' })
 vim.keymap.set('n', '<leader>gd', ':Git diff<cr>', { desc = '[G]it [D]iff' })
 
@@ -540,23 +551,21 @@ vim.keymap.set('c', 'Wq', 'wq')
 
 -- trouble (diagnostics viewer)
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-  {silent = true, noremap = true}
-)
+  {silent = true, noremap = true, desc = 'Diagnosti[X] Toggle' })
 vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-  {silent = true, noremap = true}
-)
+  {silent = true, noremap = true, desc = 'Diagnosti[X] [W]orkspace' })
 vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
-  {silent = true, noremap = true}
-)
+  {silent = true, noremap = true, desc = 'Diagnosti[X] [D]ocument' })
 vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-  {silent = true, noremap = true}
-)
+  {silent = true, noremap = true, desc = 'Diagnosti[X] [L]oclist' })
 vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-  {silent = true, noremap = true}
-)
-vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
-  {silent = true, noremap = true}
-)
+  {silent = true, noremap = true, desc = 'Diagnosti[X] [Q]uickfix' })
+vim.keymap.set("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>",
+  {silent = true, noremap = true, desc = 'Diagnosti[X] [R]eferences' })
+-- Diagnostic keymaps
+vim.keymap.set('n', '<leader>xp', vim.diagnostic.goto_prev, { desc = 'Diagnosti[X] [P]rev' })
+vim.keymap.set('n', '<leader>xn', vim.diagnostic.goto_next, { desc = 'Diagnosti[X] [N]ext' })
+vim.keymap.set('n', '<leader>xf', vim.diagnostic.open_float, { desc = 'Diagnosti[X] open [F]loat' })
 --
 -- obsidian (notes)
 vim.keymap.set("n", "<leader>nrb", "<cmd>ObsidianBacklinks<cr>",
