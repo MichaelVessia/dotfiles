@@ -54,8 +54,6 @@ require('packer').startup(function(use)
   }
   use { 'rcarriga/nvim-notify', config = function () require("notify").setup { stages = 'fade_in_slide_out', background_colour = 'FloatShadow', timeout = 3000, } vim.notify = require('notify') end }
 
-  use { 'stevearc/aerial.nvim' }
-
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
 
@@ -216,27 +214,6 @@ require('gitsigns').setup {
   },
 }
 
--- Vim aerial (symbol outline)
-require("aerial").setup({
-  attach_mode = "global",
-  backends = { "lsp", "treesitter", "markdown" },
-  layout = {
-    min_width = 28,
-  },
-  show_guides = true,
-  filter_kind = false,
-  keymaps = {
-    ["[y"] = "actions.prev",
-    ["]y"] = "actions.next",
-    ["[Y"] = "actions.prev_up",
-    ["]Y"] = "actions.next_up",
-    ["{"] = false,
-    ["}"] = false,
-    ["[["] = false,
-    ["]]"] = false,
-  }})
-vim.keymap.set('n', '<leader>oo', ':AerialToggle<cr>', { desc = '[O]pen [O]utline' })
-
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -253,7 +230,6 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
-pcall(require('telescope').load_extension, 'aerial')
 pcall(require('telescope').load_extension, 'notify')
 
 -- See `:help telescope.builtin`
@@ -274,7 +250,6 @@ vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
 vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
 vim.keymap.set('n', '<leader>fn', ':Telescope notify<cr>', { desc = '[F]ind [N]otifications' })
-vim.keymap.set('n', '<leader>fs', ':Telescope aerial<cr>', { desc = '[F]ind [S]ymbols' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -449,7 +424,7 @@ cmp.setup {
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Insert,
+      behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
     ['<Tab>'] = cmp.mapping(function(fallback)
