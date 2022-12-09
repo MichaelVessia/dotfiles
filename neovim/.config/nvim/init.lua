@@ -7,86 +7,66 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd [[packadd packer.nvim]]
 end
 
--- stylua: ignore start
 require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'                                                         -- Package manager
-  use 'tpope/vim-fugitive'                                                             -- Git commands in nvim
-  use 'tpope/vim-rhubarb'                                                              -- Fugitive-companion to interact with github
-  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }            -- Add git related info in the signs columns and popups
-  use 'numToStr/Comment.nvim'                                                          -- "gc" to comment visual regions/lines
-  use 'nvim-treesitter/nvim-treesitter'                                                -- Highlight, edit, and navigate code
-  use { 'nvim-treesitter/nvim-treesitter-textobjects', after = { 'nvim-treesitter' } } -- Additional textobjects for treesitter
-  use 'neovim/nvim-lspconfig'                                                          -- Collection of configurations for built-in LSP client
-  use 'williamboman/mason.nvim'                                                        -- Manage external editor tooling i.e LSP servers
-  use 'williamboman/mason-lspconfig.nvim'                                              -- Automatically install language servers to stdpath
-  use { 'hrsh7th/nvim-cmp', requires = { 'hrsh7th/cmp-nvim-lsp' }   }                  -- Autocompletion
-  use { 'L3MON4D3/LuaSnip', requires = { 'saadparwaiz1/cmp_luasnip' }   }              -- Snippet Engine and Snippet Expansion
-  use { 'navarasu/onedark.nvim'   }                                                    -- Theme inspired by Atom
-  use 'nvim-lualine/lualine.nvim'                                                      -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim'                                            -- Add indentation guides even on blank lines
-  use 'tpope/vim-sleuth'                                                               -- Detect tabstop and shiftwidth automatically
-  use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' }   }    -- Fuzzy Finder (files, lsp, etc)
-  use { 'alexghergh/nvim-tmux-navigation', config = function()
-    require'nvim-tmux-navigation'.setup {
-      disable_when_zoomed = true, -- defaults to false
-      keybindings = {
-        left = "<C-h>",
-        down = "<C-j>",
-        up = "<C-k>",
-        right = "<C-l>",
-        last_active = "<C-\\>",
-        next = "<C-Space>",
-      }
-    }
-  end
-  }
-  use 'folke/which-key.nvim'                                                         -- Keybind cheatsheet
-  use 'ThePrimeagen/git-worktree.nvim'                                               -- Worktree support
-  use 'NvChad/nvim-colorizer.lua'                                                    -- Show HTML colors
-  use {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
+  -- Package manager
+  use 'wbthomason/packer.nvim'
+
+  use { -- LSP Configuration & Plugins
+    'neovim/nvim-lspconfig',
     requires = {
-      "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-    }
+      -- Automatically install LSPs to stdpath for neovim
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+
+      -- Useful status updates for LSP
+      'j-hui/fidget.nvim',
+    },
   }
-  use { 'rcarriga/nvim-notify', config = function () require("notify").setup { stages = 'fade_in_slide_out', background_colour = 'FloatShadow', timeout = 3000, } vim.notify = require('notify') end }
 
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
-
-  use {'stevearc/dressing.nvim'}
-
-  use {
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
+  use { -- Autocompletion
+    'hrsh7th/nvim-cmp',
+    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
-  use {
-    's1n7ax/nvim-window-picker',
-    tag = 'v1.*',
-    config = function()
-      require'window-picker'.setup()
+
+  use { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   }
 
-  use { 'epwalsh/obsidian.nvim',
-    tag = 'v1.*',
+  use { -- Additional text objects via treesitter
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    after = 'nvim-treesitter',
   }
+
+  -- Git related plugins
+  use 'tpope/vim-fugitive'
+  use 'tpope/vim-rhubarb'
+  use 'lewis6991/gitsigns.nvim'
+
+  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
+  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
+  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+
+  -- Fuzzy Finder (files, lsp, etc)
+  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
+
+  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+
+  -- Add custom plugins to packer from /nvim/lua/custom/plugins.lua
+  local has_plugins, plugins = pcall(require, 'custom.plugins')
+  if has_plugins then
+    plugins(use)
+  end
 
   if is_bootstrap then
     require('packer').sync()
   end
 end)
--- stylua: ignore end
 
 -- When we are bootstrapping a configuration, it doesn't
 -- make sense to execute the rest of the init.lua.
@@ -115,11 +95,8 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- Set highlight on search
 vim.o.hlsearch = false
 
--- Make line numbers relative and highlight current line
-vim.wo.relativenumber = true
--- Enable hybrid numbers, shows the current line number instead of 0
+-- Make line numbers default
 vim.wo.number = true
-vim.wo.cursorline = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -129,7 +106,6 @@ vim.o.breakindent = true
 
 -- Save undo history
 vim.o.undofile = true
-vim.o.backupcopy = 'yes'
 
 -- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
@@ -141,16 +117,10 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-require('onedark').setup {
-  style = 'darker'
-}
-require('onedark').load()
+vim.cmd [[colorscheme onedark]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
-
--- Turn off swapfiles
-vim.o.swapfile = false
 
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
@@ -192,9 +162,6 @@ require('lualine').setup {
 -- Enable Comment.nvim
 require('Comment').setup()
 
--- Enable colorizer
-require('colorizer').setup()
-
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
 require('indent_blankline').setup {
@@ -224,13 +191,11 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
-    path_display={"truncate"}
   },
 }
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
-pcall(require('telescope').load_extension, 'notify')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -243,31 +208,20 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<leader>fa', function() require('telescope.builtin').find_files({hidden = true}) end, { desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
-vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
-vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
-vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
-vim.keymap.set('n', '<leader>fn', ':Telescope notify<cr>', { desc = '[F]ind [N]otifications' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'lua', 'typescript', 'tsx', 'yaml', 'json', 'astro', 'html', 'css', "markdown", "markdown_inline" },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help' },
 
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = { "markdown" }
-  },
+  highlight = { enable = true },
   indent = { enable = true },
   incremental_selection = {
     enable = true,
     keymaps = {
       init_selection = '<c-space>',
       node_incremental = '<c-space>',
-      -- TODO: I'm not sure for this one.
       scope_incremental = '<c-s>',
       node_decremental = '<c-backspace>',
     },
@@ -278,6 +232,8 @@ require('nvim-treesitter.configs').setup {
       lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
         ['af'] = '@function.outer',
         ['if'] = '@function.inner',
         ['ac'] = '@class.outer',
@@ -316,7 +272,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
-
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -339,13 +294,13 @@ local on_attach = function(_, bufnr)
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('gr', require('telescope.builtin').lsp_references)
+  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  --nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -357,22 +312,30 @@ local on_attach = function(_, bufnr)
   end, '[W]orkspace [L]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', vim.lsp.buf.format or vim.lsp.buf.formatting, { desc = 'Format current buffer with LSP' })
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+    if vim.lsp.buf.format then
+      vim.lsp.buf.format()
+    elseif vim.lsp.buf.formatting then
+      vim.lsp.buf.formatting()
+    end
+  end, { desc = 'Format current buffer with LSP' })
 end
-
--- nvim-cmp supports additional completion capabilities
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Setup mason so it can manage external tooling
 require('mason').setup()
 
 -- Enable the following language servers
-local servers = { 'angularls', 'eslint', 'tsserver', 'sumneko_lua', 'jsonls', 'html', 'cssls', 'astro', 'ansiblels', 'rust_analyzer'  }
+-- Feel free to add/remove any LSPs that you want here. They will automatically be installed
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'gopls' }
 
 -- Ensure the servers above are installed
 require('mason-lspconfig').setup {
   ensure_installed = servers,
 }
+
+-- nvim-cmp supports additional completion capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
@@ -380,6 +343,9 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+-- Turn on status information
+require('fidget').setup()
 
 -- Example custom configuration for lua
 --
@@ -404,7 +370,7 @@ require('lspconfig').sumneko_lua.setup {
       },
       workspace = { library = vim.api.nvim_get_runtime_file('', true) },
       -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = { enable = false, },
+      telemetry = { enable = false },
     },
   },
 }
@@ -452,128 +418,5 @@ cmp.setup {
   },
 }
 
--- Enable File Tree
-vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-vim.keymap.set('n', '<leader>t', ':Neotree reveal toggle<cr>', { desc = 'Neo[T]ree' })
-
-
--- Enable Whichkey
-require("which-key").setup()
-
--- Enable dressing (UI styling)
-require("dressing").setup({
-  input = {
-    default_prompt = "➤ ",
-    winhighlight = "Normal:Normal,NormalNC:Normal",
-  },
-  select = {
-    backend = { "telescope", "builtin" },
-    builtin = { winhighlight = "Normal:Normal,NormalNC:Normal" },
-  }
-})
-
-require("obsidian").setup({
-  dir = "~/vault",
-  completion = {
-    nvim_cmp = true, -- if using nvim-cmp, otherwise set to false
-  },
-  note_id_func = function(title)
-    -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-    local suffix = ""
-    if title ~= nil then
-      -- If title is given, transform it into valid file name.
-      suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-    else
-      -- If title is nil, just add 4 random uppercase letters to the suffix.
-      for _ in 1, 4 do
-        suffix = suffix .. string.char(math.random(65, 90))
-      end
-    end
-    return tostring(os.time()) .. "-" .. suffix
-  end
-})
-
--- Enable vim+tmux nav
-vim.g.tmux_navigator_no_mappings = 1
-vim.keymap.set( 'n', '<c-k>', ':TmuxNavigateUp<cr>', { silent = true })
-vim.keymap.set( 'n', '<c-j>', ':TmuxNavigateDown<cr>', { silent = true })
-vim.keymap.set( 'n', '<c-h>', ':TmuxNavigateLeft<cr>', { silent = true })
-vim.keymap.set( 'n', '<c-l>', ':TmuxNavigateRight<cr>', { silent = true })
-
--- Enable telescope git-worktree, if installed
-pcall(require('telescope').load_extension, 'git_worktree')
-vim.keymap.set('n', '<leader>gw', [[<Cmd>lua require("telescope").extensions.git_worktree.git_worktrees()<CR>]], { desc = '[G]it [W]orktree' })
-vim.keymap.set('n', '<leader>gm', [[<Cmd>lua require("telescope").extensions.git_worktree.create_git_worktree()<CR>]], { desc = '[Git] Worktree [M]ake' })
-
--- Enable easy editing of my config
-vim.keymap.set('n', '<leader>rc', ':tabnew $MYVIMRC<cr>', { desc = '[E]dit [V]imrc' })
-
--- Fugitive
-vim.keymap.set('n', '<leader>gs', ':G<cr>', { desc = '[G]it [S]tatus' })
-vim.keymap.set('n', '<leader>gl', ':Git blame<cr>', { desc = '[G]it B[l]ame' })
-vim.keymap.set('n', '<leader>gr', ':GBrowse<cr>', { desc = '[G]it [R]epo' })
-vim.keymap.set('n', '<leader>gp', ':Git push -u origin HEAD<cr>', { desc = '[G]it [P]ush' })
-vim.keymap.set('n', '<leader>gpn', ':Git push -u origin HEAD --no-verify<cr>', { desc = '[G]it [P]ush [N]o verify' })
-vim.keymap.set('n', '<leader>gf', ':Git pull<cr>', { desc = '[G]it [F]etch (Pull)' })
-vim.keymap.set('n', '<leader>gd', ':Git diff<cr>', { desc = '[G]it [D]iff' })
-
-
--- Command aliases for typos
-vim.keymap.set('c', 'W', 'w')
-vim.keymap.set('c', 'Q', 'q')
-vim.keymap.set('c', 'WQ', 'wq')
-vim.keymap.set('c', 'Wq', 'wq')
-
--- trouble (diagnostics viewer)
-vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] Toggle' })
-vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] [W]orkspace' })
-vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] [D]ocument' })
-vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] [L]oclist' })
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] [Q]uickfix' })
-vim.keymap.set("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] [R]eferences' })
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>xp', vim.diagnostic.goto_prev, { desc = 'Diagnosti[X] [P]rev' })
-vim.keymap.set('n', '<leader>xn', vim.diagnostic.goto_next, { desc = 'Diagnosti[X] [N]ext' })
-vim.keymap.set('n', '<leader>xf', vim.diagnostic.open_float, { desc = 'Diagnosti[X] open [F]loat' })
---
--- obsidian (notes)
-vim.keymap.set("n", "<leader>nb", "<cmd>ObsidianBacklinks<cr>",
-  {silent = true, noremap = true, desc = '[N]ote References [B]ack' }
-)
-vim.keymap.set("n", "<leader>nf", "<cmd>ObsidianFollowLink<cr>",
-  {silent = true, noremap = true, desc = '[N]ote References [F]orward' }
-)
-vim.keymap.set("n", "<leader>nt", "<cmd>ObsidianToday<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [T]oday' }
-)
-vim.keymap.set("n", "<leader>no", "<cmd>ObsidianOpen<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [O]pen in obsidian' }
-)
-vim.keymap.set("n", "<leader>ns", "<cmd>ObsidianSearch<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [S]earch' }
-)
-vim.keymap.set("n", "<leader>nlf", "<cmd>ObsidianLink<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [F]ind [L]ink' }
-)
-vim.keymap.set("n", "<leader>nlc", "<cmd>ObsidianLinkNew<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [C]reate [L]ink' }
-)
-vim.keymap.set("n", "<leader>nd", "<cmd>e ~/vault<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [D]irectory' }
-)
-vim.keymap.set("n", "<leader>nn", ":ObsidianNew",
-  {silent = true, noremap = true, desc = '[N]ew [N]ote' }
-)
-
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
---
--- If seeing errors parsing, check that you do not have two parsers installed.  Why this happens I do not know.
--- :echo nvim_get_runtime_file('*/python.so', v:true)
--- rm -rf /usr/local/lib/nvim/parser
