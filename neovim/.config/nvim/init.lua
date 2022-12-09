@@ -57,6 +57,87 @@ require('packer').startup(function(use)
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
+
+  -- couldnt get custom plugins working, just putting theem here for now. fix later
+    -- Enable telescope git-worktree, if installed
+    pcall(require('telescope').load_extension, 'git_worktree')
+
+    use { 'alexghergh/nvim-tmux-navigation', config = function()
+      require'nvim-tmux-navigation'.setup {
+        disable_when_zoomed = true, -- defaults to false
+        keybindings = {
+          left = "<C-h>",
+          down = "<C-j>",
+          up = "<C-k>",
+          right = "<C-l>",
+          last_active = "<C-\\>",
+          next = "<C-Space>",
+        }
+      }
+    end
+    }
+
+    -- Enable Whichkey
+    use({
+      "folke/which-key.nvim",
+      config = function()
+        require("which-key").setup({})
+      end
+    })
+
+    -- Enable dressing (UI styling)
+
+    use {'stevearc/dressing.nvim',
+    config = function()
+      require("dressing").setup({
+        input = {
+          default_prompt = "➤ ",
+          winhighlight = "Normal:Normal,NormalNC:Normal",
+        },
+        select = {
+          backend = { "telescope", "builtin" },
+          builtin = { winhighlight = "Normal:Normal,NormalNC:Normal" },
+        }
+      })
+    end
+  }
+
+    use { 'epwalsh/obsidian.nvim',
+      tag = 'v1.*',
+      config = function() require("obsidian").setup({
+        dir = "~/vault",
+        completion = {
+          nvim_cmp = true, -- if using nvim-cmp, otherwise set to false
+        },
+        note_id_func = function(title)
+          -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
+          local suffix = ""
+          if title ~= nil then
+            -- If title is given, transform it into valid file name.
+            suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+          else
+            -- If title is nil, just add 4 random uppercase letters to the suffix.
+            for _ in 1, 4 do
+              suffix = suffix .. string.char(math.random(65, 90))
+            end
+          end
+          return tostring(os.time()) .. "-" .. suffix
+        end
+      })
+      end
+    }
+
+    use {
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v2.x",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+        "MunifTanjim/nui.nvim",
+      }
+    }
+    use { 'rcarriga/nvim-notify', config = function () require("notify").setup { stages = 'fade_in_slide_out', background_colour = 'FloatShadow', timeout = 3000, } vim.notify = require('notify') end }
+
   -- Add custom plugins to packer from /nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
   if has_plugins then
@@ -420,3 +501,107 @@ cmp.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+
+-- Everything below here is my own config, until I can figure out how to consisently load things from sub directories
+
+-- Enable vim+tmux nav
+vim.g.tmux_navigator_no_mappings = 1
+vim.keymap.set( 'n', '<c-k>', ':TmuxNavigateUp<cr>', { silent = true })
+vim.keymap.set( 'n', '<c-j>', ':TmuxNavigateDown<cr>', { silent = true })
+vim.keymap.set( 'n', '<c-h>', ':TmuxNavigateLeft<cr>', { silent = true })
+vim.keymap.set( 'n', '<c-l>', ':TmuxNavigateRight<cr>', { silent = true })
+
+vim.keymap.set('n', '<leader>gw', [[<Cmd>lua require("telescope").extensions.git_worktree.git_worktrees()<CR>]], { desc = '[G]it [W]orktree' })
+vim.keymap.set('n', '<leader>gm', [[<Cmd>lua require("telescope").extensions.git_worktree.create_git_worktree()<CR>]], { desc = '[Git] Worktree [M]ake' })
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
+vim.keymap.set('n', '<leader>fa', function() require('telescope.builtin').find_files({hidden = true}) end, { desc = '[F]ind [F]iles' })
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
+vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
+vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
+vim.keymap.set('n', '<leader>fn', ':Telescope notify<cr>', { desc = '[F]ind [N]otifications' })
+
+-- Enable easy editing of my config
+vim.keymap.set('n', '<leader>rc', ':tabnew $MYVIMRC<cr>', { desc = '[E]dit [V]imrc' })
+
+-- Fugitive
+vim.keymap.set('n', '<leader>gs', ':G<cr>', { desc = '[G]it [S]tatus' })
+vim.keymap.set('n', '<leader>gl', ':Git blame<cr>', { desc = '[G]it B[l]ame' })
+vim.keymap.set('n', '<leader>gr', ':GBrowse<cr>', { desc = '[G]it [R]epo' })
+vim.keymap.set('n', '<leader>gp', ':Git push -u origin HEAD<cr>', { desc = '[G]it [P]ush' })
+vim.keymap.set('n', '<leader>gpn', ':Git push -u origin HEAD --no-verify<cr>', { desc = '[G]it [P]ush [N]o verify' })
+vim.keymap.set('n', '<leader>gf', ':Git pull<cr>', { desc = '[G]it [F]etch (Pull)' })
+vim.keymap.set('n', '<leader>gd', ':Git diff<cr>', { desc = '[G]it [D]iff' })
+
+
+-- Command aliases for typos
+vim.keymap.set('c', 'W', 'w')
+vim.keymap.set('c', 'Q', 'q')
+vim.keymap.set('c', 'WQ', 'wq')
+vim.keymap.set('c', 'Wq', 'wq')
+
+-- trouble (diagnostics viewer)
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
+  {silent = true, noremap = true, desc = 'Diagnosti[X] Toggle' })
+vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
+  {silent = true, noremap = true, desc = 'Diagnosti[X] [W]orkspace' })
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
+  {silent = true, noremap = true, desc = 'Diagnosti[X] [D]ocument' })
+vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
+  {silent = true, noremap = true, desc = 'Diagnosti[X] [L]oclist' })
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+  {silent = true, noremap = true, desc = 'Diagnosti[X] [Q]uickfix' })
+vim.keymap.set("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>",
+  {silent = true, noremap = true, desc = 'Diagnosti[X] [R]eferences' })
+-- Diagnostic keymaps
+vim.keymap.set('n', '<leader>xp', vim.diagnostic.goto_prev, { desc = 'Diagnosti[X] [P]rev' })
+vim.keymap.set('n', '<leader>xn', vim.diagnostic.goto_next, { desc = 'Diagnosti[X] [N]ext' })
+vim.keymap.set('n', '<leader>xf', vim.diagnostic.open_float, { desc = 'Diagnosti[X] open [F]loat' })
+--
+-- obsidian (notes)
+vim.keymap.set("n", "<leader>nb", "<cmd>ObsidianBacklinks<cr>",
+  {silent = true, noremap = true, desc = '[N]ote References [B]ack' }
+)
+vim.keymap.set("n", "<leader>nf", "<cmd>ObsidianFollowLink<cr>",
+  {silent = true, noremap = true, desc = '[N]ote References [F]orward' }
+)
+vim.keymap.set("n", "<leader>nt", "<cmd>ObsidianToday<cr>",
+  {silent = true, noremap = true, desc = '[N]ote [T]oday' }
+)
+vim.keymap.set("n", "<leader>no", "<cmd>ObsidianOpen<cr>",
+  {silent = true, noremap = true, desc = '[N]ote [O]pen in obsidian' }
+)
+vim.keymap.set("n", "<leader>ns", "<cmd>ObsidianSearch<cr>",
+  {silent = true, noremap = true, desc = '[N]ote [S]earch' }
+)
+vim.keymap.set("n", "<leader>nlf", "<cmd>ObsidianLink<cr>",
+  {silent = true, noremap = true, desc = '[N]ote [F]ind [L]ink' }
+)
+vim.keymap.set("n", "<leader>nlc", "<cmd>ObsidianLinkNew<cr>",
+  {silent = true, noremap = true, desc = '[N]ote [C]reate [L]ink' }
+)
+vim.keymap.set("n", "<leader>nd", "<cmd>e ~/vault<cr>",
+  {silent = true, noremap = true, desc = '[N]ote [D]irectory' }
+)
+vim.keymap.set("n", "<leader>nn", ":ObsidianNew",
+  {silent = true, noremap = true, desc = '[N]ew [N]ote' }
+)
+
+-- Enable File Tree
+vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+vim.keymap.set('n', '<leader>t', ':Neotree reveal toggle<cr>', { desc = 'Neo[T]ree' })
+
+
+-- Enable hybrid numbers, shows the current line number instead of 0
+-- Make line numbers relative and highlight current line
+vim.wo.relativenumber = true
+-- Find my cursor more easily
+vim.wo.cursorline = true
+
+-- Save undo history
+vim.o.undofile = true
+-- Fix for storybook reload
+vim.o.backupcopy = 'yes'
+-- Turn off swapfiles
+vim.o.swapfile = false
