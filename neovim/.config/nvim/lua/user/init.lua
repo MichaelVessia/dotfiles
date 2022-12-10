@@ -216,6 +216,10 @@ local config = {
       ["<leader>gpn"] = { ':Git push -u origin HEAD --no-verify<cr>', desc = '[G]it [P]ush [N]o verify' },
       ["<leader>gf"] = { ':Git pull<cr>', desc = '[G]it [F]etch (Pull)' },
       ["<leader>gd"] = { ':Git diff<cr>', desc = '[G]it [D]iff' },
+      -- Diagnostic keymaps
+      ["<leader>xp"] = { vim.diagnostic.goto_prev, desc = 'Diagnosti[X] [P]rev' },
+      ["<leader>xn"] = { vim.diagnostic.goto_next, desc = 'Diagnosti[X] [N]ext' },
+      ["<leader>xf"] = { vim.diagnostic.open_float, desc = 'Dagnosti[X] open [F]loat' }
       -- quick save
       -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
     },
@@ -224,10 +228,10 @@ local config = {
       -- ["<esc>"] = false,
     },
     c = {
-      ["W"] = { 'w' }
-      ["Q"] = { 'w' }
-      ["Wq"] = { 'wq' }
-      ["WQ"] = { 'wq' }
+      ["W"] = { 'w' },
+      ["Q"] = { 'w' },
+      ["Wq"] = { 'wq' },
+      ["WQ"] = { 'wq' },
     }
   },
 
