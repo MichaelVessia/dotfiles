@@ -1,4 +1,17 @@
--- Install packer
+-- Having issues with highlight?
+--First, make sure that nvim-treesitter is updated to the latest commit and run :TSUpdate manually.
+--If the error persists, remove nvim-treesitter completely and reinstall it together with all parsers.
+
+--If the error still persists, run :checkhealth and note down the languages for which you see errors (an x in the list of languages, and explicitly listed below that). For each language (hereafter denoted by <lang>), repeat the following steps
+
+--:TSInstall! <lang> and restart Neovim; if the error persists, continue.
+
+-- Run the following commands and note down the output:
+-- :echo nvim_get_runtime_file('*/<lang>.so', v:true)
+-- :echo nvim_get_runtime_file('queries/<lang>/*.scm', v:true)
+
+-- If either of these lists contain a directory that is not a subdirectory of nvim-treesitter, remove that directory (and, if it is another plugin, report the issue at the corresponding repository).
+
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
