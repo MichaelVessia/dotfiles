@@ -9,7 +9,7 @@ local config = {
   -- Configure AstroNvim updates
   updater = {
     remote = "origin", -- remote to use
-    channel = "nightly", -- "stable" or "nightly"
+    channel = "stable", -- "stable" or "nightly"
     version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
     branch = "main", -- branch name (NIGHTLY ONLY)
     commit = nil, -- commit hash (NIGHTLY ONLY)
@@ -205,6 +205,16 @@ local config = {
       ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
       ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
       ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
+
+      -- Fugitive
+      ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
+      ["<leader>gs"] = { ':G<cr>', desc = '[G]it [S]tatus' },
+      ["<leader>gl"] = { ':Git blame<cr>', desc = '[G]it B[l]ame' },
+      ["<leader>gr"] = { ':GBrowse<cr>', desc = '[G]it [R]epo'  },
+      ["<leader>gp"] = { ':Git push -u origin HEAD<cr>', desc = '[G]it [P]ush' },
+      ["<leader>gpn"] = { ':Git push -u origin HEAD --no-verify<cr>', desc = '[G]it [P]ush [N]o verify' },
+      ["<leader>gf"] = { ':Git pull<cr>', desc = '[G]it [F]etch (Pull)' },
+      ["<leader>gd"] = { ':Git diff<cr>', desc = '[G]it [D]iff' },
       -- quick save
       -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
     },
@@ -238,6 +248,7 @@ local config = {
       --     require("lsp_signature").setup()
       --   end,
       -- },
+      { 'tpope/vim-fugitive' }
     },
     -- All other entries override the require("<key>").setup({...}) call for default plugins
     ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
