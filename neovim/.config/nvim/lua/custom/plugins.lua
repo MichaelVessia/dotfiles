@@ -9,7 +9,7 @@ vim.cmd([[
 
 function plugins.setup(use)
 	-- color scheme
-	use("Mofiqul/dracula.nvim")
+	--use("Mofiqul/dracula.nvim")
 
 	-- EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs.
 	use( 'editorconfig/editorconfig-vim' )
@@ -81,7 +81,7 @@ function plugins.setup(use)
 		end,
 		requires = { "nvim-lua/plenary.nvim" },
 	})
-				-- mason-null-ls bridges mason.nvim with the null-ls plugin - making it easier to use both plugins together.
+	-- mason-null-ls bridges mason.nvim with the null-ls plugin - making it easier to use both plugins together.
 	use({
 		"jayp0521/mason-null-ls.nvim",
 		config = function()
@@ -92,10 +92,10 @@ function plugins.setup(use)
 	})
 
 	use("windwp/nvim-autopairs")
-				-- Use treesitter to autoclose and autorename html tag
+	-- Use treesitter to autoclose and autorename html tag
 	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" })
 
-				-- lsp_lines is a simple neovim plugin that renders diagnostics using virtual lines on top of the real line of code.
+	-- lsp_lines is a simple neovim plugin that renders diagnostics using virtual lines on top of the real line of code.
 	use({
 		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 		config = function()
@@ -103,7 +103,7 @@ function plugins.setup(use)
 		end,
 	})
 
-				-- dashboard
+	-- dashboard
 	use({
 		"goolord/alpha-nvim",
 		requires = { "kyazdani42/nvim-web-devicons" },
@@ -155,7 +155,7 @@ function plugins.setup(use)
 		end,
 	})
 
-				-- smooth scrolling
+	-- smooth scrolling
 	use({
 		"karb94/neoscroll.nvim",
 		config = function()
@@ -163,10 +163,10 @@ function plugins.setup(use)
 		end,
 	})
 
-				-- better quickfix menu
+	-- better quickfix menu
 	use({ "kevinhwang91/nvim-bqf" })
 
-				-- shows contex at top of screen (function, class, etc)
+	-- shows contex at top of screen (function, class, etc)
 	use({
 		"nvim-treesitter/nvim-treesitter-context",
 		config = function()
@@ -174,7 +174,7 @@ function plugins.setup(use)
 		end,
 	})
 
-				-- add more motions for text objects ([ydc]s<target>) for yank/delete/change surrounding target. e.g. dst, ds]
+	-- add more motions for text objects ([ydc]s<target>) for yank/delete/change surrounding target. e.g. dst, ds]
 	use({
 		"kylechui/nvim-surround",
 		tag = "*",
@@ -183,7 +183,7 @@ function plugins.setup(use)
 		end,
 	})
 
-				-- find file in particular directory
+	-- find file in particular directory
 	use({
 		"princejoogie/dir-telescope.nvim",
 		requires = { "nvim-telescope/telescope.nvim" },
@@ -195,7 +195,7 @@ function plugins.setup(use)
 		end,
 	})
 
-				-- Easily jump throughout file
+	-- Easily jump throughout file
 	use({
 		"ggandor/leap.nvim",
 		config = function()
@@ -203,7 +203,7 @@ function plugins.setup(use)
 		end,
 	})
 
-				-- note taking
+	-- note taking
 	use {
 		"nvim-neorg/neorg",
 		config = function()
@@ -224,7 +224,7 @@ function plugins.setup(use)
 		requires = "nvim-lua/plenary.nvim"
 	}
 
-				-- view vim startup time
+	-- view vim startup time
 	use({
 		"dstein64/vim-startuptime",
 		opt = true,
