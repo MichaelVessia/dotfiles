@@ -223,6 +223,12 @@ local config = {
       -- setting a mapping to false will disable it
       -- ["<esc>"] = false,
     },
+    c = {
+      ["W"] = { 'w' }
+      ["Q"] = { 'w' }
+      ["Wq"] = { 'wq' }
+      ["WQ"] = { 'wq' }
+    }
   },
 
   -- Configure plugins
