@@ -1,17 +1,4 @@
--- Having issues with highlight?
---First, make sure that nvim-treesitter is updated to the latest commit and run :TSUpdate manually.
---If the error persists, remove nvim-treesitter completely and reinstall it together with all parsers.
-
---If the error still persists, run :checkhealth and note down the languages for which you see errors (an x in the list of languages, and explicitly listed below that). For each language (hereafter denoted by <lang>), repeat the following steps
-
---:TSInstall! <lang> and restart Neovim; if the error persists, continue.
-
--- Run the following commands and note down the output:
--- :echo nvim_get_runtime_file('*/<lang>.so', v:true)
--- :echo nvim_get_runtime_file('queries/<lang>/*.scm', v:true)
-
--- If either of these lists contain a directory that is not a subdirectory of nvim-treesitter, remove that directory (and, if it is another plugin, report the issue at the corresponding repository).
-
+-- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -20,167 +7,40 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd [[packadd packer.nvim]]
 end
 
+-- stylua: ignore start
 require('packer').startup(function(use)
-  -- Package manager
-  use 'wbthomason/packer.nvim'
-
-  use { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    requires = {
-      -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
-
-      -- Useful status updates for LSP
-      'j-hui/fidget.nvim',
-    },
-  }
-
-  use { -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-  }
-
-  use { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end,
-  }
-
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
-
-  -- Git related plugins
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
-  use 'lewis6991/gitsigns.nvim'
-
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  use 'wbthomason/packer.nvim'                                              -- Package manager
+  use 'tpope/vim-fugitive'                                                  -- Git commands in nvim
+  use 'tpope/vim-rhubarb'                                                   -- Fugitive-companion to interact with github
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- Add git related info in the signs columns and popups
+  use 'numToStr/Comment.nvim'                                               -- "gc" to comment visual regions/lines
+  use 'nvim-treesitter/nvim-treesitter'                                     -- Highlight, edit, and navigate code
+  use 'nvim-treesitter/nvim-treesitter-textobjects'                         -- Additional textobjects for treesitter
+  use 'neovim/nvim-lspconfig'                                               -- Collection of configurations for built-in LSP client
+  use 'williamboman/mason.nvim'                                             -- Manage external editor tooling i.e LSP servers
+  use 'williamboman/mason-lspconfig.nvim'                                   -- Automatically install language servers to stdpath
+  use { 'hrsh7th/nvim-cmp', requires = { 'hrsh7th/cmp-nvim-lsp' } }         -- Autocompletion
+  use { 'L3MON4D3/LuaSnip', requires = { 'saadparwaiz1/cmp_luasnip' } }     -- Snippet Engine and Snippet Expansion
+  use 'mjlbach/onedark.nvim'                                                -- Theme inspired by Atom
+  use 'nvim-lualine/lualine.nvim'                                           -- Fancier statusline
+  use 'lukas-reineke/indent-blankline.nvim'                                 -- Add indentation guides even on blank lines
+  use 'tpope/vim-sleuth'                                                    -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
 
-
-  -- couldnt get custom plugins working, just putting theem here for now. fix later
-    -- Enable telescope git-worktree, if installed
-    pcall(require('telescope').load_extension, 'git_worktree')
-
-    use { 'alexghergh/nvim-tmux-navigation', config = function()
-      require'nvim-tmux-navigation'.setup {
-        disable_when_zoomed = true, -- defaults to false
-        keybindings = {
-          left = "<C-h>",
-          down = "<C-j>",
-          up = "<C-k>",
-          right = "<C-l>",
-          last_active = "<C-\\>",
-          next = "<C-Space>",
-        }
-      }
-    end
-    }
-
-    -- Enable Whichkey
-    use({
-      "folke/which-key.nvim",
-      config = function()
-        require("which-key").setup({})
-      end
-    })
-
-    -- Enable dressing (UI styling)
-
-    use {'stevearc/dressing.nvim',
-    config = function()
-      require("dressing").setup({
-        input = {
-          default_prompt = "➤ ",
-          winhighlight = "Normal:Normal,NormalNC:Normal",
-        },
-        select = {
-          backend = { "telescope", "builtin" },
-          builtin = { winhighlight = "Normal:Normal,NormalNC:Normal" },
-        }
-      })
-    end
-  }
-
-    use { 'epwalsh/obsidian.nvim',
-      tag = 'v1.*',
-      config = function() require("obsidian").setup({
-        dir = "~/vault",
-        completion = {
-          nvim_cmp = true, -- if using nvim-cmp, otherwise set to false
-        },
-        note_id_func = function(title)
-          -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-          local suffix = ""
-          if title ~= nil then
-            -- If title is given, transform it into valid file name.
-            suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-          else
-            -- If title is nil, just add 4 random uppercase letters to the suffix.
-            for _ in 1, 4 do
-              suffix = suffix .. string.char(math.random(65, 90))
-            end
-          end
-          return tostring(os.time()) .. "-" .. suffix
-        end
-      })
-      end
-    }
-
-    use {
-      "nvim-neo-tree/neo-tree.nvim",
-      branch = "v2.x",
-      requires = {
-        "nvim-lua/plenary.nvim",
-        "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-        "MunifTanjim/nui.nvim",
-      }
-    }
-    use { 'rcarriga/nvim-notify', config = function () require("notify").setup { stages = 'fade_in_slide_out', background_colour = 'FloatShadow', timeout = 3000, } vim.notify = require('notify') end }
-
-    use {
-      "folke/trouble.nvim",
-      requires = "kyazdani42/nvim-web-devicons",
-      config = function()
-        require("trouble").setup {
-          -- your configuration comes here
-          -- or leave it empty to use the default settings
-          -- refer to the configuration section below
-        }
-      end
-    }
-
-  use {
-      's1n7ax/nvim-window-picker',
-      tag = 'v1.*',
-      config = function()
-        require'window-picker'.setup()
-      end,
-    }
-
-  -- Add custom plugins to packer from /nvim/lua/custom/plugins.lua
-  local has_plugins, plugins = pcall(require, 'custom.plugins')
-  if has_plugins then
-    plugins(use)
-  end
+  -- Add custom plugins to packer from a /nvim/lua/custom/plugins.lua module
+  local has_plugins, plugins = pcall(require, "custom.plugins")
+  if has_plugins then plugins.setup(use) end
 
   if is_bootstrap then
     require('packer').sync()
   end
 end)
+-- stylua: ignore end
 
 -- When we are bootstrapping a configuration, it doesn't
 -- make sense to execute the rest of the init.lua.
@@ -322,12 +182,17 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
+-- vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+-- vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
+-- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+-- vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+-- vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help' },
+  ensure_installed = {'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript'},
 
   highlight = { enable = true },
   indent = { enable = true },
@@ -336,6 +201,7 @@ require('nvim-treesitter.configs').setup {
     keymaps = {
       init_selection = '<c-space>',
       node_incremental = '<c-space>',
+      -- TODO: I'm not sure for this one.
       scope_incremental = '<c-s>',
       node_decremental = '<c-backspace>',
     },
@@ -346,8 +212,6 @@ require('nvim-treesitter.configs').setup {
       lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
         ['af'] = '@function.outer',
         ['if'] = '@function.inner',
         ['ac'] = '@class.outer',
@@ -386,6 +250,12 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = '[d Goto prev diagnostic' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = ']d Goto next diagnostic' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = '[e] Diagnostic float' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = '[q] Diagnostic loclist' })
+
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -408,7 +278,7 @@ local on_attach = function(_, bufnr)
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('gr', require('telescope.builtin').lsp_references)
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
@@ -435,21 +305,19 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+-- nvim-cmp supports additional completion capabilities
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 -- Setup mason so it can manage external tooling
 require('mason').setup()
 
 -- Enable the following language servers
--- Feel free to add/remove any LSPs that you want here. They will automatically be installed
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'gopls' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'eslint' }
 
 -- Ensure the servers above are installed
 require('mason-lspconfig').setup {
   ensure_installed = servers,
 }
-
--- nvim-cmp supports additional completion capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
@@ -457,9 +325,6 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
-
--- Turn on status information
-require('fidget').setup()
 
 -- Example custom configuration for lua
 --
@@ -484,7 +349,7 @@ require('lspconfig').sumneko_lua.setup {
       },
       workspace = { library = vim.api.nvim_get_runtime_file('', true) },
       -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = { enable = false },
+      telemetry = { enable = false, },
     },
   },
 }
@@ -534,107 +399,3 @@ cmp.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
-
--- Everything below here is my own config, until I can figure out how to consisently load things from sub directories
-
--- Enable vim+tmux nav
-vim.g.tmux_navigator_no_mappings = 1
-vim.keymap.set( 'n', '<c-k>', ':TmuxNavigateUp<cr>', { silent = true })
-vim.keymap.set( 'n', '<c-j>', ':TmuxNavigateDown<cr>', { silent = true })
-vim.keymap.set( 'n', '<c-h>', ':TmuxNavigateLeft<cr>', { silent = true })
-vim.keymap.set( 'n', '<c-l>', ':TmuxNavigateRight<cr>', { silent = true })
-
-vim.keymap.set('n', '<leader>gw', [[<Cmd>lua require("telescope").extensions.git_worktree.git_worktrees()<CR>]], { desc = '[G]it [W]orktree' })
-vim.keymap.set('n', '<leader>gm', [[<Cmd>lua require("telescope").extensions.git_worktree.create_git_worktree()<CR>]], { desc = '[Git] Worktree [M]ake' })
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<leader>fa', function() require('telescope.builtin').find_files({hidden = true}) end, { desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
-vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
-vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
-vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
-vim.keymap.set('n', '<leader>fn', ':Telescope notify<cr>', { desc = '[F]ind [N]otifications' })
-
--- Enable easy editing of my config
-vim.keymap.set('n', '<leader>rc', ':tabnew $MYVIMRC<cr>', { desc = '[E]dit [V]imrc' })
-
--- Fugitive
-vim.keymap.set('n', '<leader>gs', ':G<cr>', { desc = '[G]it [S]tatus' })
-vim.keymap.set('n', '<leader>gl', ':Git blame<cr>', { desc = '[G]it B[l]ame' })
-vim.keymap.set('n', '<leader>gr', ':GBrowse<cr>', { desc = '[G]it [R]epo' })
-vim.keymap.set('n', '<leader>gp', ':Git push -u origin HEAD<cr>', { desc = '[G]it [P]ush' })
-vim.keymap.set('n', '<leader>gpn', ':Git push -u origin HEAD --no-verify<cr>', { desc = '[G]it [P]ush [N]o verify' })
-vim.keymap.set('n', '<leader>gf', ':Git pull<cr>', { desc = '[G]it [F]etch (Pull)' })
-vim.keymap.set('n', '<leader>gd', ':Git diff<cr>', { desc = '[G]it [D]iff' })
-
-
--- Command aliases for typos
-vim.keymap.set('c', 'W', 'w')
-vim.keymap.set('c', 'Q', 'q')
-vim.keymap.set('c', 'WQ', 'wq')
-vim.keymap.set('c', 'Wq', 'wq')
-
--- trouble (diagnostics viewer)
-vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] Toggle' })
-vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] [W]orkspace' })
-vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] [D]ocument' })
-vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] [L]oclist' })
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] [Q]uickfix' })
-vim.keymap.set("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>",
-  {silent = true, noremap = true, desc = 'Diagnosti[X] [R]eferences' })
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>xp', vim.diagnostic.goto_prev, { desc = 'Diagnosti[X] [P]rev' })
-vim.keymap.set('n', '<leader>xn', vim.diagnostic.goto_next, { desc = 'Diagnosti[X] [N]ext' })
-vim.keymap.set('n', '<leader>xf', vim.diagnostic.open_float, { desc = 'Diagnosti[X] open [F]loat' })
---
--- obsidian (notes)
-vim.keymap.set("n", "<leader>nb", "<cmd>ObsidianBacklinks<cr>",
-  {silent = true, noremap = true, desc = '[N]ote References [B]ack' }
-)
-vim.keymap.set("n", "<leader>nf", "<cmd>ObsidianFollowLink<cr>",
-  {silent = true, noremap = true, desc = '[N]ote References [F]orward' }
-)
-vim.keymap.set("n", "<leader>nt", "<cmd>ObsidianToday<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [T]oday' }
-)
-vim.keymap.set("n", "<leader>no", "<cmd>ObsidianOpen<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [O]pen in obsidian' }
-)
-vim.keymap.set("n", "<leader>ns", "<cmd>ObsidianSearch<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [S]earch' }
-)
-vim.keymap.set("n", "<leader>nlf", "<cmd>ObsidianLink<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [F]ind [L]ink' }
-)
-vim.keymap.set("n", "<leader>nlc", "<cmd>ObsidianLinkNew<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [C]reate [L]ink' }
-)
-vim.keymap.set("n", "<leader>nd", "<cmd>e ~/vault<cr>",
-  {silent = true, noremap = true, desc = '[N]ote [D]irectory' }
-)
-vim.keymap.set("n", "<leader>nn", ":ObsidianNew",
-  {silent = true, noremap = true, desc = '[N]ew [N]ote' }
-)
-
--- Enable File Tree
-vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-vim.keymap.set('n', '<leader>t', ':Neotree reveal toggle<cr>', { desc = 'Neo[T]ree' })
-
-
--- Enable hybrid numbers, shows the current line number instead of 0
--- Make line numbers relative and highlight current line
-vim.wo.relativenumber = true
--- Find my cursor more easily
-vim.wo.cursorline = true
-
--- Save undo history
-vim.o.undofile = true
--- Fix for storybook reload
-vim.o.backupcopy = 'yes'
--- Turn off swapfiles
-vim.o.swapfile = false
