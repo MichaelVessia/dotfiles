@@ -9,7 +9,7 @@ local config = {
   -- Configure AstroNvim updates
   updater = {
     remote = "origin", -- remote to use
-    channel = "stable", -- "stable" or "nightly"
+    channel = "nightly", -- "stable" or "nightly"
     version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
     branch = "main", -- branch name (NIGHTLY ONLY)
     commit = nil, -- commit hash (NIGHTLY ONLY)
@@ -71,7 +71,7 @@ local config = {
 
   -- Set dashboard header
   header = {
-    
+
     "██    ██ ███████ ███████ ███████ ██  █████ ",
     "██    ██ ██      ██      ██      ██ ██   ██",
     "██    ██ ███████ ███████ ███████ ██ ███████",
@@ -211,7 +211,7 @@ local config = {
       ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
       ["<leader>gs"] = { ':G<cr>', desc = '[G]it [S]tatus' },
       ["<leader>gl"] = { ':Git blame<cr>', desc = '[G]it B[l]ame' },
-      ["<leader>gr"] = { ':GBrowse<cr>', desc = '[G]it [R]epo'  },
+      ["<leader>gr"] = { ':GBrowse<cr>', desc = '[G]it [R]epo' },
       ["<leader>gp"] = { ':Git push -u origin HEAD<cr>', desc = '[G]it [P]ush' },
       ["<leader>gpn"] = { ':Git push -u origin HEAD --no-verify<cr>', desc = '[G]it [P]ush [N]o verify' },
       ["<leader>gf"] = { ':Git pull<cr>', desc = '[G]it [F]etch (Pull)' },
@@ -219,7 +219,10 @@ local config = {
       -- Diagnostic keymaps
       ["<leader>xp"] = { vim.diagnostic.goto_prev, desc = 'Diagnosti[X] [P]rev' },
       ["<leader>xn"] = { vim.diagnostic.goto_next, desc = 'Diagnosti[X] [N]ext' },
-      ["<leader>xf"] = { vim.diagnostic.open_float, desc = 'Dagnosti[X] open [F]loat' }
+      ["<leader>xf"] = { vim.diagnostic.open_float, desc = 'Dagnosti[X] open [F]loat' },
+      -- Enable easy editing of my config
+      ["<leader>rc"] = { ':tabnew $MYVIMRC<cr>', desc = '[E]dit [V]imrc' },
+
       -- quick save
       -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
     },
@@ -281,14 +284,17 @@ local config = {
     },
     -- use mason-lspconfig to configure LSP installations
     ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
-      -- ensure_installed = { "sumneko_lua" },
+
+      -- Enable the following language servers
+      ensure_installed = { 'angularls', 'tsserver', 'sumneko_lua', 'jsonls', 'html', 'cssls', 'astro', 'ansiblels',
+        'rust_analyzer' }
     },
     -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
     ["mason-null-ls"] = { -- overrides `require("mason-null-ls").setup(...)`
       -- ensure_installed = { "prettier", "stylua" },
     },
     ["mason-nvim-dap"] = { -- overrides `require("mason-nvim-dap").setup(...)`
-      -- ensure_installed = { "python" },
+      ensure_installed = { "typescript" },
     },
   },
 
