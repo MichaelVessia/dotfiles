@@ -153,11 +153,15 @@ vim.keymap.set("n", "<leader>n", "<cmd>NvimTreeFindFile<cr>", { noremap = true, 
 -- Open dashboard
 vim.keymap.set("n", "<leader>d", "<cmd>Alpha<cr>", { noremap = true, silent = true })
 
--- navigate tabs
-vim.keymap.set("n", "<leader>bn", ":bnext<cr>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>bp", ":bprev<cr>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>q", ":cprevious<cr>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>q", ":cnext<cr>", { noremap = true, silent = true })
+-- normal gt/gT for tab nav
+-- space space to navigate buffers
+-- TODO: How to navigate buffers within tab?
+-- Can use space space to use telescope..
+vim.keymap.set("n", "<leader>bp", ":BufferlinePick<cr>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "]b", ":bnext<cr>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "[b", ":bprev<cr>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "[q", ":cprevious<cr>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "]q", ":cnext<cr>", { noremap = true, silent = true })
 
 -- Leap.nvim overrides sS, and many visual mode keys (x, s)
 -- s = cl
