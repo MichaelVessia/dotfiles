@@ -72,7 +72,7 @@ vim.keymap.set('n', '<leader>fa', function() require('telescope.builtin').find_f
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
 vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
-vim.keymap.set('n', '<leader>fdx', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
+vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
 vim.keymap.set('n', '<leader>fn', ':Telescope notify<cr>', { desc = '[F]ind [N]otifications' })
 vim.keymap.set("n", "<leader>fdg", "<cmd>Telescope dir live_grep<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>fdf", "<cmd>Telescope dir find_files<CR>", { noremap = true, silent = true })
@@ -153,6 +153,18 @@ vim.keymap.set("n", "<leader>n", "<cmd>NvimTreeFindFile<cr>", { noremap = true, 
 -- Open dashboard
 vim.keymap.set("n", "<leader>d", "<cmd>Alpha<cr>", { noremap = true, silent = true })
 
+-- navigate tabs
+vim.keymap.set("n", "<leader>bn", ":bnext<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>bp", ":bprev<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>q", ":cprevious<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>q", ":cnext<cr>", { noremap = true, silent = true })
+
+-- Leap.nvim overrides sS, and many visual mode keys (x, s)
+-- s = cl
+-- S = cc
+-- v_s = v_c
+-- v_S = Vc
+-- v_x = v_d
 
 vim.o.backupcopy = 'yes' -- Fix for storybook reload
 --vim.opt.clipboard = "unnamedplus" -- allows access to system clipboard
