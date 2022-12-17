@@ -40,6 +40,9 @@ vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "[F]ind current 
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[F]ind by [G]rep" })
 vim.keymap.set("n", "<leader>fG", function() builtin.grep_string({ search = vim.fn.input("Grep > ") }) end, { desc = "[F]ind by [G]rep" })
 vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
+
+
+-- Use <C-/> to see keybinds. Useful for add and delete of folders etc
 vim.api.nvim_set_keymap(
   "n",
   "<leader>fb",
