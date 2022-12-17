@@ -12,6 +12,9 @@ require('packer').startup(function(use)
 	-- Package manager
 	use 'wbthomason/packer.nvim'
 
+	-- vim + tmux integration
+	use({ "christoomey/vim-tmux-navigator" })
+
 	-- Project search and fuzzy find
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.0',
