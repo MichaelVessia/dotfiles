@@ -46,3 +46,9 @@ vim.api.nvim_set_keymap(
   ":Telescope file_browser<CR>",
   { noremap = true }
 )
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>fB",
+  ":Telescope file_browser path=%:p:h<CR>",
+  { noremap = true }
+)
