@@ -13,6 +13,8 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+-- load file browser
+pcall(require("telescope").load_extension "file_browser")
 
 
 local builtin = require("telescope.builtin")
@@ -38,6 +40,9 @@ vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "[F]ind current 
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[F]ind by [G]rep" })
 vim.keymap.set("n", "<leader>fG", function() builtin.grep_string({ search = vim.fn.input("Grep > ") }) end, { desc = "[F]ind by [G]rep" })
 vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
-vim.keymap.set("n", "<leader>fn", ":Telescope notify<cr>", { desc = "[F]ind [N]otifications" })
-vim.keymap.set("n", "<leader>fdg", "<cmd>Telescope dir live_grep<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>fdf", "<cmd>Telescope dir find_files<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>fb",
+  ":Telescope file_browser<CR>",
+  { noremap = true }
+)

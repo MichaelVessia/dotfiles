@@ -85,6 +85,9 @@ require('packer').startup(function(use)
 		end,
 	})
 
+	-- file browser
+	use { "nvim-telescope/telescope-file-browser.nvim" }
+
 	-- LSP config
 	use {
 		'VonHeikemen/lsp-zero.nvim',
