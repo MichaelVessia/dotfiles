@@ -1,3 +1,4 @@
 require("michaelvessia")
 require("michaelvessia.remap")
-print("hello base")
+require("michaelvessia.options")
+require("michaelvessia.fugitive")
