@@ -30,4 +30,8 @@ require('packer').startup(function(use)
 	-- Undo tree visualizer
 	use 'mbbill/undotree'
 
+	-- Git wrapper
+	use 'tpope/vim-fugitive'
+
+
 end)
