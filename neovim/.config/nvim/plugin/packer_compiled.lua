@@ -160,6 +160,11 @@ _G.packer_plugins = {
     path = "/home/michaelvessia/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  neorg = {
+    loaded = true,
+    path = "/home/michaelvessia/.local/share/nvim/site/pack/packer/start/neorg",
+    url = "https://github.com/nvim-neorg/neorg"
+  },
   ["neoscroll.nvim"] = {
     config = { "\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14neoscroll\frequire\0" },
     loaded = true,
@@ -240,6 +245,11 @@ _G.packer_plugins = {
     path = "/home/michaelvessia/.local/share/nvim/site/pack/packer/start/vim-rhubarb",
     url = "https://github.com/tpope/vim-rhubarb"
   },
+  ["vim-rooter"] = {
+    loaded = true,
+    path = "/home/michaelvessia/.local/share/nvim/site/pack/packer/start/vim-rooter",
+    url = "https://github.com/airblade/vim-rooter"
+  },
   ["vim-sleuth"] = {
     loaded = true,
     path = "/home/michaelvessia/.local/share/nvim/site/pack/packer/start/vim-sleuth",
@@ -261,6 +271,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: lsp_lines.nvim
+time([[Config for lsp_lines.nvim]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14lsp_lines\frequire\0", "config", "lsp_lines.nvim")
+time([[Config for lsp_lines.nvim]], false)
 -- Config for: neoscroll.nvim
 time([[Config for neoscroll.nvim]], true)
 try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14neoscroll\frequire\0", "config", "neoscroll.nvim")
@@ -269,10 +283,6 @@ time([[Config for neoscroll.nvim]], false)
 time([[Config for nvim-treesitter-context]], true)
 try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\23treesitter-context\frequire\0", "config", "nvim-treesitter-context")
 time([[Config for nvim-treesitter-context]], false)
--- Config for: lsp_lines.nvim
-time([[Config for lsp_lines.nvim]], true)
-try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14lsp_lines\frequire\0", "config", "lsp_lines.nvim")
-time([[Config for lsp_lines.nvim]], false)
 -- Conditional loads
 time([[Conditional loading of telescope-fzf-native.nvim]], true)
   require("packer.load")({"telescope-fzf-native.nvim"}, {}, _G.packer_plugins)

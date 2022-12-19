@@ -112,5 +112,12 @@ require('packer').startup(function(use)
 		}
 	}
 
+	use {
+		"nvim-neorg/neorg",
+		run = ":Neorg sync-parsers" -- This is the important bit!
+	}
+
+	-- set root directory automatically
+	use "airblade/vim-rooter"
 
 end)
