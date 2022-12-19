@@ -32,6 +32,7 @@ neorg_callbacks.on_event("core.keybinds.events.enable_keybinds", function(_, key
 end)
 
 -- workspaces
+vim.keymap.set("n", "<leader>nd", ':e ~/notes<CR>', { desc = "[N]ote [D]ir" })
 vim.keymap.set("n", "<leader>nwh", ':Neorg workspace home<CR>', { desc = "[N]ote [W]orkspace [H]ome" })
 vim.keymap.set("n", "<leader>nww", ':Neorg workspace work<CR>', { desc = "[N]ote [W]orkspace [W]ork" })
 -- metadata
