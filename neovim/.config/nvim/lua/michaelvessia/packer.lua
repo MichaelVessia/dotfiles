@@ -114,7 +114,8 @@ require('packer').startup(function(use)
 
 	use {
 		"nvim-neorg/neorg",
-		run = ":Neorg sync-parsers" -- This is the important bit!
+		run = ":Neorg sync-parsers", -- This is the important bit!
+		requires = "nvim-neorg/neorg-telescope" -- Be sure to pull in the repo
 	}
 
 	-- set root directory automatically
