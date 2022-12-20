@@ -6,6 +6,7 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
+vim.opt.relativenumber = true -- show relative line number to the cursor
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -45,7 +46,6 @@ vim.opt.shiftwidth = 4 -- number of spaces inserted for indentation
 vim.opt.tabstop = 4 -- number of spaces that a <tab> represents
 vim.opt.expandtab = false -- don't replace tabs with spaces
 vim.opt.wrap = false -- don't wrap long content on next line
-vim.opt.relativenumber = true -- show relative line number to the cursor
 vim.opt.swapfile = false -- temporary copy of your opened buffer
 vim.opt.shiftwidth = 4 -- number of spaces inserted for indentation
 vim.opt.scrolloff = 8 -- minimum number of lines to keep above and below cursor
@@ -55,7 +55,9 @@ vim.opt.showmode = false -- remove messages like insert, replace, etc...
 vim.opt.smartindent = true -- indent automatically for c-like languages
 vim.opt.splitbelow = true -- add split below current one
 vim.opt.splitright = true -- add split to the right of current one
--- vim.opt.lazyredraw = true         -- don't redraw screen while executing macros, etc...
+vim.opt.lazyredraw = true         -- don't redraw screen while executing macros, etc...
+
+-- Visualize whitespace
 vim.opt.list = false -- show hidden whitespace characters
 vim.opt.listchars = { -- list of hidden characters
 	tab = "» ",
@@ -67,7 +69,11 @@ vim.opt.listchars = { -- list of hidden characters
 }
 vim.opt.laststatus = 3 -- always and ONLY the last window
 vim.opt.winbar = "%=%m %f" -- determine contents of top window bar
-vim.opt.cmdheight = 0 -- hide command-line bar when not used
+-- -- hide command-line bar when not used 
+-- NOTE: This broke macros for some reason, or at least made it look like they were broken!
+-- vim.opt.cmdheight = 0 
+
+-- improve netrw
 vim.g.netrw_keepdir = 0 -- keey the current dir the same as browsing dir
 vim.g.netrw_winsize = 30 -- initial size of new netrw windows
 vim.g.netrw_banner = 0 -- hide banner
