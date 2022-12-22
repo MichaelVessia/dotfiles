@@ -15,10 +15,12 @@ vim.g.mapleader = " " -- make sure to set `mapleader` before lazy so your mappin
 
 -- load lazy
 require("lazy").setup("michaelvessia.plugins", {
+	defaults = {
+		lazy = true
+	},
   install = { colorscheme = { "onedark", "habamax" } },
   checker = { enabled = true }
 })
-vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")
 
 require("michaelvessia.options")
 require("michaelvessia.remap")
