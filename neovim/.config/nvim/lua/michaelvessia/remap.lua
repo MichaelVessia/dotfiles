@@ -9,8 +9,8 @@ vim.keymap.set('c', 'Q', 'q')
 vim.keymap.set('c', 'WQ', 'wq')
 vim.keymap.set('c', 'Wq', 'wq')
 
--- Packer 
-vim.keymap.set("n", "<leader>ps", "<cmd>PackerSync<cr>", { desc = "[P]acker [S]ync" })
+-- Update packages 
+--vim.keymap.set("n", "<leader>ps", "<cmd>PackerSync<cr>", { desc = "[P]acker [S]ync" })
 
 -- Move highlighted things around
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
