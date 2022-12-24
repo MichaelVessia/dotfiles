@@ -9,6 +9,11 @@ require('neorg').setup {
 					home = "~/notes/home",
 				}
 			}
+		},
+		["core.norg.completion"] = {
+			config = {
+				engine = "nvim-cmp"
+			}
 		}
 	}
 }
