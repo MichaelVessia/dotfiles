@@ -120,5 +120,7 @@ require('packer').startup(function(use)
 
 	-- set root directory automatically
 	use "airblade/vim-rooter"
+	-- directory tool
+	use 'elihunter173/dirbuf.nvim'
 
 end)

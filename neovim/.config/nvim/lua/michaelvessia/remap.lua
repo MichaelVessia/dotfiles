@@ -1,8 +1,5 @@
 vim.g.mapleader = " "
 
--- Open netrw
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-
 -- Command aliases for typos
 vim.keymap.set('c', 'W', 'w')
 vim.keymap.set('c', 'Q', 'q')
