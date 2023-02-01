@@ -15,5 +15,6 @@ alias git-fetchall="git fetch origin 'refs/heads/*:refs/heads/*' --update-head-o
 alias git-reset-origin="git reset --hard @{u}"
 
 alias notes="nvim ~/vault"
+alias p="pnpm"
 
 export PATH=~/bin:$PATH

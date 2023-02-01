@@ -11,9 +11,29 @@ lsp.ensure_installed({
 
 lsp.nvim_workspace()
 
+lsp.configure('tsserver', {
+  on_attach = function(client, bufnr)
+    -- format on save
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = vim.api.nvim_create_augroup("Format", { clear = true }),
+        buffer = bufnr,
+        callback = function() vim.lsp.buf.formatting_seq_sync() end
+      })
+    end
+  end,
+  settings = {
+    completions = {
+      completeFunctionCalls = true
+    }
+  }
+})
+
 lsp.setup()
 
-vim.keymap.set("n", "<leader>l", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
+vim.keymap.set("n", "<leader>ll", require("lsp_lines").toggle, { desc = "Toggle lsp lines" })
+vim.keymap.set("n", '<leader>df', vim.diagnostic.open_float, { desc = '[D]iagnostics [F]loat' })
+vim.keymap.set("n", '<leader>dq', vim.diagnostic.setqflist, { desc = '[D]iagnostics [Q]uickfix' })
 
 vim.keymap.set("n", '<leader>rn', vim.lsp.buf.rename, { desc = '[R]e[n]ame' })
 vim.keymap.set("n", '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ction' })
