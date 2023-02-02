@@ -5,13 +5,14 @@ lsp.preset('recommended')
 
 lsp.ensure_installed({
   'tsserver',
+  'astro',
   'eslint',
   'sumneko_lua',
 })
 
 lsp.nvim_workspace()
 
-lsp.configure('tsserver', {
+local formatOnSave = {
   on_attach = function(client, bufnr)
     -- format on save
     if client.server_capabilities.documentFormattingProvider then
@@ -27,7 +28,10 @@ lsp.configure('tsserver', {
       completeFunctionCalls = true
     }
   }
-})
+}
+
+lsp.configure('tsserver', formatOnSave)
+lsp.configure('astro', formatOnSave)
 
 lsp.setup()
 
