@@ -35,6 +35,7 @@ lsp.configure('astro', formatOnSave)
 
 lsp.setup()
 
+vim.keymap.set("n", "<leader>ll", require("lsp_lines").toggle, { desc = "Toggle lsp lines" })
 vim.keymap.set("n", '<leader>df', vim.diagnostic.open_float, { desc = '[D]iagnostics [F]loat' })
 vim.keymap.set("n", '<leader>dq', vim.diagnostic.setqflist, { desc = '[D]iagnostics [Q]uickfix' })
 

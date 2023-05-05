@@ -58,6 +58,14 @@ require('packer').startup(function(use)
 		end,
 	})
 
+	-- lsp_lines is a simple neovim plugin that renders diagnostics using virtual lines on top of the real line of code.
+	use({
+		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		config = function()
+			require("lsp_lines").setup()
+		end,
+	})
+
 	use {
 		"folke/trouble.nvim",
 		requires = "nvim-tree/nvim-web-devicons",
