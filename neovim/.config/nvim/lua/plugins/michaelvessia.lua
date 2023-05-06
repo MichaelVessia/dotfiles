@@ -54,4 +54,32 @@ return {
   },
   -- disable leap
   { "ggandor/leap.nvim", enabled = false },
+  {
+    "nvim-telescope/telescope.nvim",
+    keys = {
+      {
+        "<leader>fg",
+        function()
+          require("telescope.builtin").live_grep({ cwd = require("lazy.core.config").options.root })
+        end,
+        desc = "Grep (root dir)",
+      },
+      {
+        "<leader>fG",
+        function()
+          require("telescope.builtin").live_grep()
+        end,
+        desc = "Grep (cwd)",
+      },
+    },
+    -- change some options
+    opts = {
+      defaults = {
+        layout_strategy = "horizontal",
+        layout_config = { prompt_position = "top" },
+        sorting_strategy = "ascending",
+        winblend = 0,
+      },
+    },
+  },
 }
