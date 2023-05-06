@@ -1,6 +1,7 @@
 return {
   {
     "tpope/vim-fugitive",
+    lazy = false,
     keys = {
       -- Maybe I can muscle memory myself into using :G
       --{ "<leader>gs", ":G<cr>", { desc = "[G]it [S]tatus" } },
