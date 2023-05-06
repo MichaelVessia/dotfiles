@@ -52,8 +52,9 @@ return {
       { "<leader>ntocs", ":Neorg toc split<CR>", { desc = "[N]ote [TOC] [S]plit" } },
     },
   },
-  -- disable leap
+  -- disable leap and flit which both override default vim binds
   { "ggandor/leap.nvim", enabled = false },
+  { "ggandor/flit.nvim", enabled = false },
   {
     "nvim-telescope/telescope.nvim",
     keys = {
@@ -70,6 +71,11 @@ return {
           require("telescope.builtin").live_grep()
         end,
         desc = "Grep (cwd)",
+      },
+      -- Disable bind that conflicts with my fugitive bind
+      {
+        "<leader>gs",
+        "<Nop>",
       },
     },
     -- change some options
