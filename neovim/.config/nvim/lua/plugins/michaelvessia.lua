@@ -52,4 +52,6 @@ return {
       { "<leader>ntocs", ":Neorg toc split<CR>", { desc = "[N]ote [TOC] [S]plit" } },
     },
   },
+  -- disable leap
+  { "ggandor/leap.nvim", enabled = false },
 }
