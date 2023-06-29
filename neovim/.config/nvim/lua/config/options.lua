@@ -7,3 +7,5 @@ local opt = vim.opt
 -- Show a status line on each split
 opt.laststatus = 2
 opt.swapfile = false
+-- Prevent sync with system clipboard
+opt.clipboard = ""
