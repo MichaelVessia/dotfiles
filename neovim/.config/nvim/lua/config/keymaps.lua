@@ -27,8 +27,8 @@ vim.keymap.set("v", "<A-j>", "<Nop>")
 vim.keymap.set("v", "<A-k>", "<Nop>")
 
 -- Command aliases for typos
-vim.keymap.set("c", "W", "w")
-vim.keymap.set("c", "Q", "q")
+--vim.keymap.set("c", "W", "w")
+--vim.keymap.set("c", "Q", "q")
 vim.keymap.set("c", "WQ", "wq")
 vim.keymap.set("c", "Wq", "wq")
 
