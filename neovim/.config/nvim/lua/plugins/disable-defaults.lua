@@ -7,4 +7,5 @@ return {
   { "lewis6991/gitsigns.nvim", enabled = false },
   -- disable autopairs because I like typing my own quotes
   { "echasnovski/mini.pairs", enabled = false },
+  { "goolord/alpha-nvim", enabled = false },
 }

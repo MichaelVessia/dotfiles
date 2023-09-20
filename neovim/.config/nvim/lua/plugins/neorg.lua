@@ -30,6 +30,8 @@ return {
       { "<leader>njm", ":Neorg journal tomorrow<CR>", { desc = "[N]ote [J]ournal Tom[M]orrow" } },
       -- toc
       { "<leader>ntocs", ":Neorg toc split<CR>", { desc = "[N]ote [TOC] [S]plit" } },
+      -- Notes
+      { "<leader>nn", "core.norg.dirman.new.note", { desc = "[N]ew [N]ote" } },
     },
   },
 }
