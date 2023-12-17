@@ -115,3 +115,6 @@ export PATH="$PNPM_HOME:$PATH"
 fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
+
+[[ ! -r /home/michaelvessia/.opam/opam-init/init.zsh ]] || source /home/michaelvessia/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
