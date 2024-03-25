@@ -118,3 +118,13 @@ autoload -Uz compinit && compinit
 
 [[ ! -r /home/michaelvessia/.opam/opam-init/init.zsh ]] || source /home/michaelvessia/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
+
+# sst
+export PATH=/Users/michael.vessia/.sst/bin:$PATH
+
+# bun completions
+[ -s "/Users/michael.vessia/.bun/_bun" ] && source "/Users/michael.vessia/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

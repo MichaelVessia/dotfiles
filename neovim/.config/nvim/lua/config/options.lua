@@ -9,3 +9,7 @@ opt.laststatus = 2
 opt.swapfile = false
 -- Prevent sync with system clipboard
 opt.clipboard = ""
+
+-- Save files in such a way that hot reloading works
+opt.backup = false
+opt.writebackup = false
