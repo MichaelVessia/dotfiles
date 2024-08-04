@@ -128,3 +128,7 @@ export PATH=/Users/michael.vessia/.sst/bin:$PATH
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export PATH=/home/michaelvessia/.cache/rebar3/bin:$PATH
+
+export PATH="$HOME/.local/bin:$PATH"
