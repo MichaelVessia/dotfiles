@@ -105,7 +105,6 @@ source ~/.flo-zsh
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
 # pnpm
-export PNPM_HOME="/Users/michael.vessia/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
@@ -117,14 +116,6 @@ fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
 
 [[ ! -r /home/michaelvessia/.opam/opam-init/init.zsh ]] || source /home/michaelvessia/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-
-
-# sst
-export PATH=/Users/michael.vessia/.sst/bin:$PATH
-
-# bun completions
-[ -s "/Users/michael.vessia/.bun/_bun" ] && source "/Users/michael.vessia/.bun/_bun"
-
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"

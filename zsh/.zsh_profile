@@ -16,5 +16,6 @@ alias git-reset-origin="git reset --hard @{u}"
 
 alias notes="nvim ~/vault"
 alias p="pnpm"
+alias pr="git town new-pull-request"
 
 export PATH=~/bin:$PATH
