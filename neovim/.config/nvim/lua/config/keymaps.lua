@@ -39,6 +39,3 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 map("n", "<leader>url", function()
   Util.toggle("relativenumber", false)
 end, { desc = "Toggle Relative Line Numbers" })
-
--- Open file navigation window
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
