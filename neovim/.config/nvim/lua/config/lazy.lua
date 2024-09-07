@@ -11,17 +11,26 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import any extras modules here
+
+    -- typescript support
     { import = "lazyvim.plugins.extras.lang.typescript" },
+    -- json suppport
     { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    -- UI animations. Trying this again, but it causes a bit of lag for me historically
+    { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    -- tailwind support
     { import = "lazyvim.plugins.extras.lang.tailwind" },
+    -- eslint support
     { import = "lazyvim.plugins.extras.linting.eslint" },
+    -- prettier support
     { import = "lazyvim.plugins.extras.formatting.prettier" },
+    -- Easily switch between projects
     { import = "lazyvim.plugins.extras.util.project" },
+    -- Add ability to run tests from within nvim
     { import = "lazyvim.plugins.extras.test.core" },
+    -- Add ability to debug from within nvim
     { import = "lazyvim.plugins.extras.dap.core" },
-    { import = "lazyvim.plugins.extras.coding.copilot" },
-    --{ import = "lazyvim.plugins.extras.editor.harpoon2" },
+    -- Add refactoring plugin
     { import = "lazyvim.plugins.extras.editor.refactoring" },
     -- import/override with your plugins
     { import = "plugins" },
