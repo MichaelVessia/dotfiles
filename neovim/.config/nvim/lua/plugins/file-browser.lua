@@ -1,5 +1,6 @@
 return {
   "nvim-telescope/telescope-file-browser.nvim",
+  lazy = true,
   keys = {
     {
       "<leader>sB",

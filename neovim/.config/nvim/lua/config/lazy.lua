@@ -26,10 +26,6 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.formatting.prettier" },
     -- Easily switch between projects
     { import = "lazyvim.plugins.extras.util.project" },
-    -- Add ability to run tests from within nvim
-    { import = "lazyvim.plugins.extras.test.core" },
-    -- Add ability to debug from within nvim
-    { import = "lazyvim.plugins.extras.dap.core" },
     -- Add refactoring plugin
     { import = "lazyvim.plugins.extras.editor.refactoring" },
     -- import/override with your plugins
