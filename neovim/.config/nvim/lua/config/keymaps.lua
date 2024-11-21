@@ -39,3 +39,8 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 map("n", "<leader>url", function()
   Util.toggle("relativenumber", false)
 end, { desc = "Toggle Relative Line Numbers" })
+
+local neogit = require("neogit")
+map("n", "<leader>G", function()
+  neogit.open()
+end, { desc = "Neo[G]it" })
