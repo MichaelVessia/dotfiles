@@ -2,6 +2,7 @@
 return {
   {
     "tpope/vim-fugitive",
+    enabled = false,
     lazy = false,
     keys = {
       { "<leader>gp", ":Git push -u origin HEAD<cr>", { desc = "[G]it [P]ush" } },
