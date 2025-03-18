@@ -21,6 +21,14 @@
   },
   "ui_font_size": 14,
   "buffer_font_size": 14,
+  "relative_line_numbers": true,
+  "scrollbar": {
+    "show": "never"
+  },
+  "buffer_line_height": "standard",
+  "terminal": {
+    "line_height": "standard"
+  },
   "theme": {
     "mode": "system",
     "light": "One Light",
