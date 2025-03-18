@@ -104,7 +104,11 @@ source ~/.zsh_profile
 source ~/.flo-zsh
 
 # pnpm
-export PATH="$PNPM_HOME:$PATH"
+export PNPM_HOME="/home/michaelvessia/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 # pnpm end
 
 # asdf (node versions)
@@ -129,3 +133,5 @@ export NVM_DIR="$HOME/.nvm"
 
 # Added by Windsurf
 export PATH="/Users/michael.vessia/.codeium/windsurf/bin:$PATH"
+# bun completions
+[ -s "/home/michaelvessia/.bun/_bun" ] && source "/home/michaelvessia/.bun/_bun"
