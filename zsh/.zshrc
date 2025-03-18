@@ -104,7 +104,11 @@ source ~/.zsh_profile
 source ~/.flo-zsh
 
 # pnpm
-export PATH="$PNPM_HOME:$PATH"
+export PNPM_HOME="/home/michaelvessia/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 # pnpm end
 
 # asdf (node versions)
@@ -126,3 +130,6 @@ export PATH="$HOME/.local/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# bun completions
+[ -s "/home/michaelvessia/.bun/_bun" ] && source "/home/michaelvessia/.bun/_bun"
