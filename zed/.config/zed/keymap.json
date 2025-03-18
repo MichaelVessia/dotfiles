@@ -33,16 +33,10 @@
       "space u h": "editor::ToggleInlayHints"
     }
   },
-  // These binds cause problems because "Workspace" is too wide of a scope
-  // Need to solve this so I can toggle panes
-  // {
-  //   "context": "Workspace",
-  //   "bindings": {
-  //     "space x l": "workspace::ToggleLeftDock",
-  //     "space x b": "workspace::ToggleBottomDock",
-  //     "space x r": "workspace::ToggleRightDock"
-  //   }
-  // },
+  {
+    "context": "Workspace",
+    "bindings": {}
+  },
   {
     "context": "Dock",
     "bindings": {

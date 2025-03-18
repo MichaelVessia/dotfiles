@@ -1,4 +1,4 @@
 cmd - h [
-  "zed" : skhd -k ""
+  "zed" : skhd -k "ctrl - b" && skhd -k "h"
   "ghostty" : skhd -k ""
 ]
