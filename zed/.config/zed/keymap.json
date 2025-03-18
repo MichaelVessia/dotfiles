@@ -7,35 +7,51 @@
 // from the command palette.
 [
   {
-    "context": "Workspace && vim_mode != insert",
+    "context": "Editor && vim_mode != insert",
     "bindings": {
-      "space l": "workspace::ToggleLeftDock",
+      "space t": "terminal_panel::ToggleFocus",
       "space e": "project_panel::ToggleFocus",
       "space g": "git_panel::ToggleFocus",
-      "space t": "terminal_panel::ToggleFocus" // Close with Cmd-j
+      "space i": "assistant::ToggleFocus",
+      "space o": "outline_panel::ToggleFocus"
     }
   },
   {
-    "context": "Editor",
+    "context": "Editor && vim_mode == normal",
     "bindings": {
-      // "j k": ["workspace::SendKeystrokes", "escape"]
+      // Tabs / Buffers
+      "space tab": "tab_switcher::Toggle",
+      // Find things
+      "space f f": "file_finder::Toggle",
+      "space f b": "editor::FindAllReferences",
+      // Code actions
+      "space c a": "editor::ToggleCodeActions",
+      // UI changes
+      "space u d": "editor::ToggleInlineDiagnostics",
+      "space u l": "editor::ToggleLineNumbers",
+      "space u r l": "editor::ToggleRelativeLineNumbers",
+      "space u h": "editor::ToggleInlayHints"
     }
   },
+  // These binds cause problems because "Workspace" is too wide of a scope
+  // Need to solve this so I can toggle panes
+  // {
+  //   "context": "Workspace",
+  //   "bindings": {
+  //     "space x l": "workspace::ToggleLeftDock",
+  //     "space x b": "workspace::ToggleBottomDock",
+  //     "space x r": "workspace::ToggleRightDock"
+  //   }
+  // },
   {
     "context": "Dock",
     "bindings": {
       // Allow movement in/out of the dock, i.e. terminal
+      // Generally i imagine i will just have it closed, but may still be useful.
       "ctrl-w h": "workspace::ActivatePaneLeft",
       "ctrl-w l": "workspace::ActivatePaneRight",
       "ctrl-w k": "workspace::ActivatePaneUp",
       "ctrl-w j": "workspace::ActivatePaneDown"
-    }
-  },
-  {
-    "context": "vim_mode == normal",
-    "bindings": {
-      "space f": "file_finder::Toggle",
-      "space c": "editor::ToggleCodeActions"
     }
   }
 ]

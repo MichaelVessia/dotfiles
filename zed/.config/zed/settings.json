@@ -31,7 +31,13 @@
   },
   "theme": {
     "mode": "system",
-    "light": "One Light",
-    "dark": "Catppuccin Mocha"
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Macchiato"
+  },
+  "collaboration_panel": {
+    "button": false
+  },
+  "file_finder": {
+    "modal_max_width": "medium"
   }
 }

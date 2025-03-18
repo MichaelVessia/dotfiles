@@ -1,0 +1,4 @@
+cmd - h [
+  "zed" : skhd -k ""
+  "ghostty" : skhd -k ""
+]
