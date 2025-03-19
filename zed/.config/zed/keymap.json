@@ -7,35 +7,29 @@
 // from the command palette.
 [
   {
-    "context": "Editor && vim_mode != insert",
+    "context": "Editor && vim_mode == normal",
     "bindings": {
+      // Tabs / Buffers
+      "space tab": "tab_switcher::Toggle",
+      // File Stuff
+      "space f f": "file_finder::Toggle",
+      // Search
+      "space s g": "pane::DeploySearch",
+      // Code actions
+      "space c a": "editor::ToggleCodeActions",
+      "space c r": "editor::Rename",
+      // UI changes
+      "space u d": "editor::ToggleInlineDiagnostics",
+      "space u l": "editor::ToggleLineNumbers",
+      "space u r l": "editor::ToggleRelativeLineNumbers",
+      "space u h": "editor::ToggleInlayHints",
+      // Panels
       "space t": "terminal_panel::ToggleFocus",
       "space e": "project_panel::ToggleFocus",
       "space g": "git_panel::ToggleFocus",
       "space i": "assistant::ToggleFocus",
       "space o": "outline_panel::ToggleFocus"
     }
-  },
-  {
-    "context": "Editor && vim_mode == normal",
-    "bindings": {
-      // Tabs / Buffers
-      "space tab": "tab_switcher::Toggle",
-      // Find things
-      "space f f": "file_finder::Toggle",
-      "space f b": "editor::FindAllReferences",
-      // Code actions
-      "space c a": "editor::ToggleCodeActions",
-      // UI changes
-      "space u d": "editor::ToggleInlineDiagnostics",
-      "space u l": "editor::ToggleLineNumbers",
-      "space u r l": "editor::ToggleRelativeLineNumbers",
-      "space u h": "editor::ToggleInlayHints"
-    }
-  },
-  {
-    "context": "Workspace",
-    "bindings": {}
   },
   {
     "context": "Dock",
