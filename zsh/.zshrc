@@ -99,39 +99,55 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-source ~/.zsh_profile
-source ~/.flo-zsh
-
 # pnpm
-export PNPM_HOME="/home/michaelvessia/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+# Node version manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# sst
+export PATH=$HOME/.sst/bin:$PATH
+# opencode
+export PATH=$HOME/.opencode/bin:$PATH
+# Added by Windsurf
+export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 # asdf (node versions)
 . "$HOME/.asdf/asdf.sh"
 # append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
-
-[[ ! -r /home/michaelvessia/.opam/opam-init/init.zsh ]] || source /home/michaelvessia/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-export PATH=/home/michaelvessia/.cache/rebar3/bin:$PATH
-
+# General
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="~/bin:$PATH"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Place configuration that only needs to happen on work laptop in here
+source ~/.flo-zsh
 
-# Added by Windsurf
-export PATH="/Users/michael.vessia/.codeium/windsurf/bin:$PATH"
-# bun completions
-[ -s "/home/michaelvessia/.bun/_bun" ] && source "/home/michaelvessia/.bun/_bun"
+# Exports
+export EDITOR='nvim'
+
+# Aliases
+alias dots="cd ~/.dotfiles/"
+alias vim="nvim"
+
+# Git
+# Fetch all refs from remote
+# Useful for pulling remote branches for use with git worktree
+alias git-fetchall="git fetch origin 'refs/heads/*:refs/heads/*' --update-head-ok"
+alias gcm="git checkout master"
+# Reset branch to origin
+alias gro="git reset --hard @{u}"
+alias pr="git town new-pull-request"
+alias p="pnpm"
