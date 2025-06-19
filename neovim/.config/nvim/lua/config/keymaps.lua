@@ -44,3 +44,5 @@ local neogit = require("neogit")
 map("n", "<leader>G", function()
   neogit.open()
 end, { desc = "Neo[G]it" })
+
+vim.keymap.set("n", "<leader>tc", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
