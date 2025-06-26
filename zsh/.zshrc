@@ -139,16 +139,128 @@ source ~/.flo-zsh
 export EDITOR='nvim'
 
 # Aliases
-alias dots="cd ~/.dotfiles/"
-alias vim="nvim"
 
-# Git
-# Fetch all refs from remote
-# Useful for pulling remote branches for use with git worktree
-alias git-fetchall="git fetch origin 'refs/heads/*:refs/heads/*' --update-head-ok"
-alias gcm="git checkout master"
-# Reset branch to origin
-alias gro="git reset --hard @{u}"
-alias pr="git town new-pull-request"
+# Directory navigation
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../../"
+alias .....="cd ../../../../"
+alias dots="cd ~/.dotfiles/"
+
+# ls replacement with eza
+alias ls="eza"
+alias ll="eza -l"
+alias la="eza -la"
+alias lt="eza --tree"
+
+# File operations
+alias cp="cp -v"
+alias ddf="df -h"
+alias etc="erd -H"
+alias mkdir="mkdir -p"
+alias mv="mv -v"
+alias rm="rm -v"
+
+# Utilities
+alias vim="nvim"
+alias cdi="zi"
+
+# Git aliases
+alias gaa="git add -A"
+alias ga="git add"
+alias gbd="git branch --delete"
+alias gb="git branch"
+alias gc="git commit"
+alias gcm="git commit -m"
+alias gcob="git checkout -b"
+alias gco="git checkout"
+alias gd="git diff"
+alias gl="git log"
+alias gp="git push"
+alias gph="git push -u origin HEAD"
+alias gs="git status"
+alias gst="git stash"
+alias gstp="git stash pop"
+
+# Other
 alias p="pnpm"
 alias claude="/Users/michael.vessia/.claude/local/claude"
+
+# Functions
+
+# Extract archive
+extract() {
+    case "$1" in
+        *.tar.bz2) tar xjf "$1" ;;
+        *.tar.gz)  tar xzf "$1" ;;
+        *.bz2)     bunzip2 "$1" ;;
+        *.rar)     unrar e "$1" ;;
+        *.gz)      gunzip "$1" ;;
+        *.tar)     tar xf "$1" ;;
+        *.tbz2)    tar xjf "$1" ;;
+        *.tgz)     tar xzf "$1" ;;
+        *.zip)     unzip "$1" ;;
+        *.Z)       uncompress "$1" ;;
+        *.7z)      7z x "$1" ;;
+        *)         echo "unknown extension: $1" ;;
+    esac
+}
+
+# Extract to directory
+extracttodir() {
+    case "$1" in
+        *.tar.bz2) tar -xjf "$1" -C "$2" ;;
+        *.tar.gz)  tar -xzf "$1" -C "$2" ;;
+        *.rar)     unrar x "$1" "$2/" ;;
+        *.tar)     tar -xf "$1" -C "$2" ;;
+        *.tbz2)    tar -xjf "$1" -C "$2" ;;
+        *.tgz)     tar -xzf "$1" -C "$2" ;;
+        *.zip)     unzip "$1" -d "$2" ;;
+        *.7z)      7za e -y "$1" -o"$2" ;;
+        *)         echo "unknown extension: $1" ;;
+    esac
+}
+
+# List files matching pattern
+lsr() {
+    ls | rg -i "$1"
+}
+
+# Make directory and cd into it
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
+# Count files
+num() {
+    ls -1 "$@" | wc -l
+}
+
+# Wget wrapper
+wg() {
+    if [ $# -eq 1 ]; then
+        wget -c "$1"
+    elif [ $# -eq 2 ]; then
+        # arg1 = name, arg2 = url
+        wget -c -O "$1" "$2"
+    else
+        echo "Incorrect number of arguments"
+    fi
+}
+
+# FZF Configuration
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || echo {}'"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {} 2>/dev/null || echo {}'"
+
+# Source fzf if installed
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Zoxide Configuration
+eval "$(zoxide init zsh --cmd cd)"
+
+# Atuin Configuration
+eval "$(atuin init zsh)"
